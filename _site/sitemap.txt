@@ -1,13 +1,12 @@
 
-http://username.github.io/archive.html
-http://username.github.io/atom.xml
-http://username.github.io/categories.html
-http://username.github.io/index.html
-http://username.github.io/index.html
-http://username.github.io/pages.html
-http://username.github.io/rss.xml
-http://username.github.io/sitemap.txt
-http://username.github.io/tags.html
+http://xhray.github.io/archive.html
+http://xhray.github.io/atom.xml
+http://xhray.github.io/categories.html
+http://xhray.github.io/index.html
+http://xhray.github.io/index.html
+http://xhray.github.io/pages.html
+http://xhray.github.io/rss.xml
+http://xhray.github.io/sitemap.txt
+http://xhray.github.io/tags.html
 
-http://username.github.io/ios/2014/07/28/UIView
-http://username.github.io/lessons/2011/12/29/jekyll-introduction
+http://xhray.github.io/ios/2014/07/29/uiview
