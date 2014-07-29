@@ -1,0 +1,565 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Uiview</title>
+    
+    <meta name="author" content="Name Lastname">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Jekyll Bootstrap</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container">
+        
+<div class="page-header">
+  <h1>Uiview <small></small></h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>28 July 2014</span>
+    </div>
+    <div class="content">
+      
+<h1 id="uiview">UIView</h1>
+
+<h2 id="layoutsubviews">layoutSubviews</h2>
+
+<p>布局subviews</p>
+
+<p>- (void)layoutSubviews</p>
+
+<h3 id="section">概述</h3>
+
+<p>该方法的默认实现对于iOS 5.1及其之前的版本无效。否则，默认的实现方法会使用你设置的所有约束去确定所有subviews的size和position。</p>
+
+<p>在需要更精准地布局subviews的时候，派生类可以覆盖这个方法。只有在subviews的autoresizing和contraint-base behaviors不能提供你想要的行为时，你才应该去覆盖这个方法。你可以使用自身实现的方法去设置subviews的frame rectangles。</p>
+
+<p>你不应该直接调用该方法。如果想要强制更新布局，需要调用<em>setNeedsLayout</em>方法来通知系统在下次绘图时更新布局。如果需要立即更新views，则需要调用<em>layoutIfNeeded</em>。</p>
+
+<blockquote>
+  <p>在重写该方法时，可以获取view上将要显示的数据。因此，可以根据这些数据来对subviews进行更精细的布局，如控制文本的高度。</p>
+</blockquote>
+
+<h2 id="drawrect">drawRect:</h2>
+
+<p>在指定的矩形区域内绘制接收者的图片。</p>
+
+<p>- (void)drawRect:(CGRect)rect</p>
+
+<h4 id="strong-and-emphasize">Strong and Emphasize</h4>
+
+<p><strong>strong</strong> or <strong>strong</strong> ( Cmd + B )</p>
+
+<p><em>emphasize</em> or <em>emphasize</em> ( Cmd + I )</p>
+
+<p><strong>Sometimes I want a lot of text to be bold.
+Like, seriously, a <em>LOT</em> of text</strong></p>
+
+<h4 id="blockquotes">Blockquotes</h4>
+
+<blockquote>
+  <p>Right angle brackets &gt; are used for block quotes.</p>
+</blockquote>
+
+<h4 id="links-and-email">Links and Email</h4>
+
+<p>An email <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#101;&#120;&#097;&#109;&#112;&#108;&#101;&#064;&#101;&#120;&#097;&#109;&#112;&#108;&#101;&#046;&#099;&#111;&#109;">&#101;&#120;&#097;&#109;&#112;&#108;&#101;&#064;&#101;&#120;&#097;&#109;&#112;&#108;&#101;&#046;&#099;&#111;&#109;</a> link.</p>
+
+<p>Simple inline link <a href="http://chenluois.com">http://chenluois.com</a>, another inline link <a href="http://smallerapp.com">Smaller</a>, one more inline link with title <a href="http://resizesafari.com" title="a Safari extension">Resize</a>.</p>
+
+<p>A <a href="http://mouapp.com" title="Markdown editor on Mac OS X">reference style</a> link. Input id, then anywhere in the doc, define the link with corresponding id:</p>
+
+<p>Titles ( or called tool tips ) in the links are optional.</p>
+
+<h4 id="images">Images</h4>
+
+<p>An inline image <img src="http://smallerapp.com/favicon.ico" alt="Smaller icon" title="Title here" />, title is optional.</p>
+
+<p>A <img src="http://resizesafari.com/favicon.ico" alt="Resize icon" title="Title" /> reference style image.</p>
+
+<h4 id="inline-code-and-block-code">Inline code and Block code</h4>
+
+<p>Inline code are surround by <code>backtick</code> key. To create a block code:</p>
+
+<pre><code>Indent each line by at least 1 tab, or 4 spaces.
+var Mou = exactlyTheAppIwant; 
+</code></pre>
+
+<h4 id="ordered-lists">Ordered Lists</h4>
+
+<p>Ordered lists are created using “1.” + Space:</p>
+
+<ol>
+  <li>Ordered list item</li>
+  <li>Ordered list item</li>
+  <li>Ordered list item</li>
+</ol>
+
+<h4 id="unordered-lists">Unordered Lists</h4>
+
+<p>Unordered list are created using “*” + Space:</p>
+
+<ul>
+  <li>Unordered list item</li>
+  <li>Unordered list item</li>
+  <li>Unordered list item </li>
+</ul>
+
+<p>Or using “-“ + Space:</p>
+
+<ul>
+  <li>Unordered list item</li>
+  <li>Unordered list item</li>
+  <li>Unordered list item</li>
+</ul>
+
+<h4 id="hard-linebreak">Hard Linebreak</h4>
+
+<p>End a line with two or more spaces will create a hard linebreak, called <code>&lt;br /&gt;</code> in HTML. ( Control + Return )<br />
+Above line ended with 2 spaces.</p>
+
+<h4 id="horizontal-rules">Horizontal Rules</h4>
+
+<p>Three or more asterisks or dashes:</p>
+
+<hr />
+
+<hr />
+
+<hr />
+
+<h4 id="headers">Headers</h4>
+
+<p>Setext-style:</p>
+
+<h1 id="this-is-h1">This is H1</h1>
+
+<h2 id="this-is-h2">This is H2</h2>
+
+<p>atx-style:</p>
+
+<h1 id="this-is-h1-1">This is H1</h1>
+<p>## This is H2
+### This is H3
+#### This is H4
+##### This is H5
+###### This is H6</p>
+
+<h3 id="extra-syntax">Extra Syntax</h3>
+
+<h4 id="footnotes">Footnotes</h4>
+
+<p>Footnotes work mostly like reference-style links. A footnote is made of two things: a marker in the text that will become a superscript number; a footnote definition that will be placed in a list of footnotes at the end of the document. A footnote looks like this:</p>
+
+<p>That’s some text with a footnote.<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup></p>
+
+<h4 id="strikethrough">Strikethrough</h4>
+
+<p>Wrap with 2 tilde characters:</p>
+
+<p>~~Strikethrough~~</p>
+
+<h4 id="fenced-code-blocks">Fenced Code Blocks</h4>
+
+<p>Start with a line containing 3 or more backticks, and ends with the first line with the same number of backticks:</p>
+
+<p><code>
+Fenced code blocks are like Stardard Markdown’s regular code
+blocks, except that they’re not indented and instead rely on
+a start and end fence lines to delimit the code block.
+</code></p>
+
+<h4 id="tables">Tables</h4>
+
+<p>A simple table looks like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>First Header</th>
+      <th>Second Header</th>
+      <th>Third Header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+    </tr>
+    <tr>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If you wish, you can add a leading and tailing pipe to each line of the table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>First Header</th>
+      <th>Second Header</th>
+      <th>Third Header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+    </tr>
+    <tr>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+      <td>Content Cell</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Specify alignement for each column by adding colons to separator lines:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">First Header</th>
+      <th style="text-align: center">Second Header</th>
+      <th style="text-align: right">Third Header</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">Left</td>
+      <td style="text-align: center">Center</td>
+      <td style="text-align: right">Right</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">Left</td>
+      <td style="text-align: center">Center</td>
+      <td style="text-align: right">Right</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="shortcuts">Shortcuts</h3>
+
+<h4 id="view">View</h4>
+
+<ul>
+  <li>Toggle live preview: Shift + Cmd + I</li>
+  <li>Toggle Words Counter: Shift + Cmd + W</li>
+  <li>Toggle Transparent: Shift + Cmd + T</li>
+  <li>Toggle Floating: Shift + Cmd + F</li>
+  <li>Left/Right = 1/1: Cmd + 0</li>
+  <li>Left/Right = 3/1: Cmd + +</li>
+  <li>Left/Right = 1/3: Cmd + -</li>
+  <li>Toggle Writing orientation: Cmd + L</li>
+  <li>Toggle fullscreen: Control + Cmd + F</li>
+</ul>
+
+<h4 id="actions">Actions</h4>
+
+<ul>
+  <li>Copy HTML: Option + Cmd + C</li>
+  <li>Strong: Select text, Cmd + B</li>
+  <li>Emphasize: Select text, Cmd + I</li>
+  <li>Inline Code: Select text, Cmd + K</li>
+  <li>Strikethrough: Select text, Cmd + U</li>
+  <li>Link: Select text, Control + Shift + L</li>
+  <li>Image: Select text, Control + Shift + I</li>
+  <li>Select Word: Control + Option + W</li>
+  <li>Select Line: Shift + Cmd + L</li>
+  <li>Select All: Cmd + A</li>
+  <li>Deselect All: Cmd + D</li>
+  <li>Convert to Uppercase: Select text, Control + U</li>
+  <li>Convert to Lowercase: Select text, Control + Shift + U</li>
+  <li>Convert to Titlecase: Select text, Control + Option + U</li>
+  <li>Convert to List: Select lines, Control + L</li>
+  <li>Convert to Blockquote: Select lines, Control + Q</li>
+  <li>Convert to H1: Cmd + 1</li>
+  <li>Convert to H2: Cmd + 2</li>
+  <li>Convert to H3: Cmd + 3</li>
+  <li>Convert to H4: Cmd + 4</li>
+  <li>Convert to H5: Cmd + 5</li>
+  <li>Convert to H6: Cmd + 6</li>
+  <li>Convert Spaces to Tabs: Control + [</li>
+  <li>Convert Tabs to Spaces: Control + ]</li>
+  <li>Insert Current Date: Control + Shift + 1</li>
+  <li>Insert Current Time: Control + Shift + 2</li>
+  <li>Insert entity &lt;: Control + Shift + ,</li>
+  <li>Insert entity &gt;: Control + Shift + .</li>
+  <li>Insert entity &amp;: Control + Shift + 7</li>
+  <li>Insert entity Space: Control + Shift + Space</li>
+  <li>Insert Scriptogr.am Header: Control + Shift + G</li>
+  <li>Shift Line Left: Select lines, Cmd + [</li>
+  <li>Shift Line Right: Select lines, Cmd + ]</li>
+  <li>New Line: Cmd + Return</li>
+  <li>Comment: Cmd + /</li>
+  <li>Hard Linebreak: Control + Return</li>
+</ul>
+
+<h4 id="edit">Edit</h4>
+
+<ul>
+  <li>Auto complete current word: Esc</li>
+  <li>Find: Cmd + F</li>
+  <li>Close find bar: Esc</li>
+</ul>
+
+<h4 id="post">Post</h4>
+
+<ul>
+  <li>Post on Scriptogr.am: Control + Shift + S</li>
+  <li>Post on Tumblr: Control + Shift + T</li>
+</ul>
+
+<h4 id="export">Export</h4>
+
+<ul>
+  <li>Export HTML: Option + Cmd + E</li>
+  <li>Export PDF:  Option + Cmd + P</li>
+</ul>
+
+<h3 id="and-more">And more?</h3>
+
+<p>Don’t forget to check Preferences, lots of useful options are there.</p>
+
+<p>Follow <a href="http://twitter.com/chenluois">@chenluois</a> on Twitter for the latest news.</p>
+
+<p>For feedback, use the menu <code>Help</code> - <code>Send Feedback</code></p>
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>And that’s the footnote. <a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#ios-ref">
+    		ios <span>1</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#UIView-ref">UIView <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#layoutSubviews-ref">layoutSubviews <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#drawRect-ref">drawRect <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/lessons/2011/12/29/jekyll-introduction" title="Jekyll Introduction">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next disabled"><a>Next &rarr;</a>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>&copy; 2014 Name Lastname
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </div>
+    </div id="footer">
+
+    
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
