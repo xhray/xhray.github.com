@@ -9,4 +9,5 @@ http://xhray.github.io/rss.xml
 http://xhray.github.io/sitemap.txt
 http://xhray.github.io/tags.html
 
-http://xhray.github.io/ios/2014/07/29/uiview
+http://xhray.github.io/ios/2014/07/31/uipickerview
+http://xhray.github.io/ios/2014/07/28/UIView

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Hello World!</title>
+    <title>Uiview</title>
     
     <meta name="author" content="ray tan">
 
@@ -134,53 +134,116 @@
       <div class="container">
         
 <div class="page-header">
-  <h1>Hello World!  <small>Supporting tagline</small></h1>
+  <h1>Uiview <small></small></h1>
 </div>
 
-<div class="row">
+<div class="row post-full">
   <div class="col-xs-12">
+    <div class="date">
+      <span>28 July 2014</span>
+    </div>
+    <div class="content">
+      
+<h1 id="uiview">UIView</h1>
+
+<h2 id="layoutsubviews">layoutSubviews</h2>
+
+<p>布局subviews</p>
+
+<p>- (void)layoutSubviews</p>
+
+<h3 id="section">概述</h3>
+
+<p>该方法的默认实现对于iOS 5.1及其之前的版本无效。否则，默认的实现方法会使用你设置的所有约束去确定所有subviews的size和position。</p>
+
+<p>在需要更精准地布局subviews的时候，派生类可以覆盖这个方法。只有在subviews的autoresizing和contraint-base behaviors不能提供你想要的行为时，你才应该去覆盖这个方法。你可以使用自身实现的方法去设置subviews的frame rectangles。</p>
+
+<p>你不应该直接调用该方法。如果想要强制更新布局，需要调用<em>setNeedsLayout</em>方法来通知系统在下次绘图时更新布局。如果需要立即更新views，则需要调用<em>layoutIfNeeded</em>。</p>
+
+<blockquote>
+  <p>在重写该方法时，可以获取view上将要显示的数据。因此，可以根据这些数据来对subviews进行更精细的布局，如控制文本的高度。</p>
+</blockquote>
+
+<h2 id="drawrect">drawRect:</h2>
+
+<p>在指定的矩形区域内绘制接收者的图片。</p>
+
+<p>- (void)drawRect:(CGRect)rect</p>
+
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#ios-ref">
+    		ios <span>2</span>
+    	</a></li>
     
-<p>Read <a href="http://jekyllbootstrap.com/usage/jekyll-quick-start.html">Jekyll Quick Start</a></p>
-
-<p>Complete usage and documentation available at: <a href="http://jekyllbootstrap.com">Jekyll Bootstrap</a></p>
-
-<h2 id="update-author-attributes">Update Author Attributes</h2>
-
-<p>In <code>_config.yml</code> remember to specify your own data:</p>
-
-<pre><code>title : My Blog =)
-
-author :
-  name : Name Lastname
-  email : blah@email.test
-  github : username
-  twitter : username
-</code></pre>
-
-<p>The theme should reference these variables whenever needed.</p>
-
-<h2 id="sample-posts">Sample Posts</h2>
-
-<p>This blog contains sample posts which help stage pages and blog data.
-When you don’t need the samples anymore just delete the <code>_posts/core-samples</code> folder.</p>
-
-<pre><code>$ rm -rf _posts/core-samples
-</code></pre>
-
-<p>Here’s a sample “posts list”.</p>
-
-<ul class="posts">
   
-    <li><span>31 Jul 2014</span> &raquo; <a href="/ios/2014/07/31/uipickerview">UIPickerView</a></li>
-  
-    <li><span>28 Jul 2014</span> &raquo; <a href="/ios/2014/07/28/UIView">Uiview</a></li>
-  
-</ul>
 
-<h2 id="to-do">To-Do</h2>
 
-<p>This theme is still unfinished. If you’d like to be added as a contributor, <a href="http://github.com/plusjade/jekyll-bootstrap">please fork</a>!
-We need to clean up the themes, make theme usage guides with theme-specific markup examples.</p>
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#UIView-ref">UIView <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#layoutSubviews-ref">layoutSubviews <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#drawRect-ref">drawRect <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev disabled"><a>&larr; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/ios/2014/07/31/uipickerview" title="UIPickerView">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
 
 
   </div>
