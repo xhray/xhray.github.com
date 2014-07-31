@@ -24,3 +24,8 @@ Invalid height value 300.0 pinned to 216.0.
 Invalid height value 66.0 pinned to 162.0.
 
 
+参考资料：
+
+* [How to change UIPickerView height](http://stackoverflow.com/questions/573979/how-to-change-uipickerview-height)
+
+

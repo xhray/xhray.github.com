@@ -5,8 +5,8 @@
         <description>xhray's blog - ray tan</description>
         <link>http://xhray.github.io</link>
         <link>http://xhray.github.io</link>
-        <lastBuildDate>2014-07-31T17:17:40+08:00</lastBuildDate>
-        <pubDate>2014-07-31T17:17:40+08:00</pubDate>
+        <lastBuildDate>2014-07-31T17:55:31+08:00</lastBuildDate>
+        <pubDate>2014-07-31T17:55:31+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -29,6 +29,12 @@
 
   &lt;p&gt;Invalid height value 66.0 pinned to 162.0.&lt;/p&gt;
 &lt;/blockquote&gt;
+
+&lt;p&gt;参考资料：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://stackoverflow.com/questions/573979/how-to-change-uipickerview-height&quot;&gt;How to change UIPickerView height&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
                 <link>http://xhray.github.io/ios/2014/07/31/uipickerview</link>
