@@ -107,3 +107,8 @@ Voilà! 我们现在拥有一个非常好看地按钮：
 ![Screen-Shot-2013-10-24-at-6.32.55-AM](http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.32.55-AM.png)
 
 无论什么时候，只要你需要一个紫色的按钮，你只需要一张小的方图，然后忽略其边角部分并将中间部分不断复制，就可以将原图改变成任意大小。
+
+
+### 原文链接
+
+[iOS: How To Make A Stretchable Button With UIEdgeInsetsMake](http://natashatherobot.com/ios-stretchable-button-uiedgeinsetsmake)
