@@ -4,7 +4,7 @@
  <title>xhray's blog</title>
  <link href="http://xhray.github.io/" rel="self"/>
  <link href="http://xhray.github.io"/>
- <updated>2014-07-31T17:55:31+08:00</updated>
+ <updated>2014-08-02T11:26:44+08:00</updated>
  <id>http://xhray.github.io</id>
  <author>
    <name>ray tan</name>
@@ -18,9 +18,7 @@
    <updated>2014-07-31T00:00:00+08:00</updated>
    <id>http://xhray.github.io/ios/2014/07/31/uipickerview</id>
    <content type="html">
-&lt;h1 id=&quot;uipickerview&quot;&gt;UIPickerView&lt;/h1&gt;
-
-&lt;h4 id=&quot;uipickerview-1&quot;&gt;调整UIPickerView高度&lt;/h4&gt;
+&lt;h4 id=&quot;uipickerview&quot;&gt;调整UIPickerView高度&lt;/h4&gt;
 
 &lt;p&gt;UIPickerView只允许3种高度(162.0, 180.0, 216.0)&lt;/p&gt;
 
@@ -45,13 +43,124 @@
  </entry>
  
  <entry>
-   <title>Uiview</title>
+   <title>iOS：使用UIEdgeInsetsMake制作可伸缩按钮</title>
+   <link href="http://xhray.github.io/ios/2014/07/31/make-stretchable-button-with-uiedgeinsetsmake"/>
+   <updated>2014-07-31T00:00:00+08:00</updated>
+   <id>http://xhray.github.io/ios/2014/07/31/make-stretchable-button-with-uiedgeinsetsmake</id>
+   <content type="html">
+&lt;p&gt;在一个iOS app里，通常会使用很多的button。而这些button有同样的背景色（backgroud）但在不同的屏幕上有不同的大小（即使在iOS7上，button没有背景）。举个例子，Save button会比Submit button短，但它们都以紫色为背景色。&lt;/p&gt;
+
+&lt;p&gt;在此情况下，你通常不想为button定义各种不同大小背景图片。幸运地，使用&lt;strong&gt;UIEdgeInsetsMake&lt;/strong&gt;方法可以非常容易地另一张这样的图片：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://natashatherobot.com/wp-content/uploads/purple_button@2x.png&quot; alt=&quot;origin image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;变成这样的：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.32.55-AM.png&quot; alt=&quot;target image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这个想法非常简单。原图的方形圆角按钮的边缘需要保留，但中间部分可以在横向/纵向两个方向进行复制，直到达到需要的大小。&lt;/p&gt;
+
+&lt;p&gt;使用&lt;strong&gt;UIEdgeInsets&lt;/strong&gt;，并指定在拉伸图片时，top、left、bottom、right忽略的像素数可以达到此目的。&lt;strong&gt;UIEdgeInsets&lt;/strong&gt;是一个包含4个float类型字段（top、left、bottom、right）的结构体（struct）。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;typedef struct {
+	CGFload top, left, bottom, right;
+} UIEdgeInsets;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;复制一切&lt;/h2&gt;
+
+&lt;p&gt;现在我新建一个项目，在storyboard上添加一个自定义button，然后在ViewController上为那个button创建outlet。在ViewDidLoad:方法，我调用了私有的configureButton方法。该方法在最开始的时候将UIEdgeInsets初始为&lt;strong&gt;UIEdgeInsetsMake(0, 0, 0, 0)&lt;/strong&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@&quot;purple_button.png&quot;]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;随着整张图片不断被复制（在UIEdgeInsets没有设置忽略像素），最后生成的图片为：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.47.11-AM.png&quot; alt=&quot;Screen-Shot-2013-10-24-at-6.47.11-AM&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;纵向拉伸&lt;/h2&gt;
+
+&lt;p&gt;为了让图片纵向拉伸，我们需要忽略左边缘和右边缘，如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://natashatherobot.com/wp-content/uploads/purple_button_vertically.png&quot; alt=&quot;purple_button_vertically&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在这些边缘之间的所有东西可以被复制。为达到这样的效果，我们需要忽略左/右各8各像素，设置UIEdgeInsets为UIedgeInsetsMake(0, 8, 0, 8)：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@&quot;purple_button.png&quot;]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;现在的效果看起来好多了！&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.53.42-AM.png&quot; alt=&quot;Screen-Shot-2013-10-24-at-6.53.42-AM&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-2&quot;&gt;横向拉伸&lt;/h2&gt;
+
+&lt;p&gt;类似地，如果需要将图片横向拉伸，只需要忽略图片上/下各8像素，将图片的中间部分复制：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://natashatherobot.com/wp-content/uploads/purple_button_horizontal-1.png&quot; alt=&quot;purple_button_horizontal-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;所以，如果只是横向拉伸，UIEdgeInsets被设置为UIEdgeInsetsMake(8, 0, 8, 0)，configureButton的方法如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(8, 0, 8, 0);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@&quot;purple_button.png&quot;]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;类似上面得例子，图片可以横向拉伸，但纵向没有：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-7.03.20-AM.png&quot; alt=&quot;Screen-Shot-2013-10-24-at-7.03.20-AM&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;section-3&quot;&gt;双向拉伸&lt;/h2&gt;
+
+&lt;p&gt;为了让图片同时在横向和纵向拉伸，我们需要忽略上/下、左/右8像素：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://natashatherobot.com/wp-content/uploads/purple_button_both-1.png&quot; alt=&quot;purple_button_both-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们只需要简单地设置UIEdgeInsets为UIEdgeInsetsMake(8, 8, 8, 8)，在每个方向上忽略8像素：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@&quot;purple_button.png&quot;]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Voilà! 我们现在拥有一个非常好看地按钮：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.32.55-AM.png&quot; alt=&quot;Screen-Shot-2013-10-24-at-6.32.55-AM&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;无论什么时候，只要你需要一个紫色的按钮，你只需要一张小的方图，然后忽略其边角部分并将中间部分不断复制，就可以将原图改变成任意大小。&lt;/p&gt;
+</content>
+ </entry>
+ 
+ <entry>
+   <title>UIView</title>
    <link href="http://xhray.github.io/ios/2014/07/28/UIView"/>
    <updated>2014-07-28T00:00:00+08:00</updated>
    <id>http://xhray.github.io/ios/2014/07/28/UIView</id>
    <content type="html">
-&lt;h1 id=&quot;uiview&quot;&gt;UIView&lt;/h1&gt;
-
 &lt;h2 id=&quot;layoutsubviews&quot;&gt;layoutSubviews&lt;/h2&gt;
 
 &lt;p&gt;布局subviews&lt;/p&gt;

@@ -8,8 +8,6 @@ tags: []
 {% include JB/setup %}
 
 
-# UIPickerView
-
 #### 调整UIPickerView高度
 
 UIPickerView只允许3种高度(162.0, 180.0, 216.0)

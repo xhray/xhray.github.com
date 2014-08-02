@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>iOS：使用UIEdgeInsetsMake制作可伸缩按钮</title>
+    <meta name="description" content="">
+    <meta name="author" content="ray tan">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">xhray's blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container">
+        
+<div class="page-header">
+  <h1>iOS：使用UIEdgeInsetsMake制作可伸缩按钮 </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>31 July 2014</span>
+    </div>
+    <div class="content">
+      
+<p>在一个iOS app里，通常会使用很多的button。而这些button有同样的背景色（backgroud）但在不同的屏幕上有不同的大小（即使在iOS7上，button没有背景）。举个例子，Save button会比Submit button短，但它们都以紫色为背景色。</p>
+
+<p>在此情况下，你通常不想为button定义各种不同大小背景图片。幸运地，使用<strong>UIEdgeInsetsMake</strong>方法可以非常容易地另一张这样的图片：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/purple_button@2x.png" alt="origin image" /></p>
+
+<p>变成这样的：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.32.55-AM.png" alt="target image" /></p>
+
+<p>这个想法非常简单。原图的方形圆角按钮的边缘需要保留，但中间部分可以在横向/纵向两个方向进行复制，直到达到需要的大小。</p>
+
+<p>使用<strong>UIEdgeInsets</strong>，并指定在拉伸图片时，top、left、bottom、right忽略的像素数可以达到此目的。<strong>UIEdgeInsets</strong>是一个包含4个float类型字段（top、left、bottom、right）的结构体（struct）。</p>
+
+<pre><code>typedef struct {
+	CGFload top, left, bottom, right;
+} UIEdgeInsets;
+</code></pre>
+
+<h2 id="section">复制一切</h2>
+
+<p>现在我新建一个项目，在storyboard上添加一个自定义button，然后在ViewController上为那个button创建outlet。在ViewDidLoad:方法，我调用了私有的configureButton方法。该方法在最开始的时候将UIEdgeInsets初始为<strong>UIEdgeInsetsMake(0, 0, 0, 0)</strong>。</p>
+
+<pre><code>- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@"purple_button.png"]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+</code></pre>
+
+<p>随着整张图片不断被复制（在UIEdgeInsets没有设置忽略像素），最后生成的图片为：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.47.11-AM.png" alt="Screen-Shot-2013-10-24-at-6.47.11-AM" /></p>
+
+<h2 id="section-1">纵向拉伸</h2>
+
+<p>为了让图片纵向拉伸，我们需要忽略左边缘和右边缘，如下图所示：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/purple_button_vertically.png" alt="purple_button_vertically" /></p>
+
+<p>在这些边缘之间的所有东西可以被复制。为达到这样的效果，我们需要忽略左/右各8各像素，设置UIEdgeInsets为UIedgeInsetsMake(0, 8, 0, 8)：</p>
+
+<pre><code>- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@"purple_button.png"]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+</code></pre>
+
+<p>现在的效果看起来好多了！</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.53.42-AM.png" alt="Screen-Shot-2013-10-24-at-6.53.42-AM" /></p>
+
+<h2 id="section-2">横向拉伸</h2>
+
+<p>类似地，如果需要将图片横向拉伸，只需要忽略图片上/下各8像素，将图片的中间部分复制：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/purple_button_horizontal-1.png" alt="purple_button_horizontal-1" /></p>
+
+<p>所以，如果只是横向拉伸，UIEdgeInsets被设置为UIEdgeInsetsMake(8, 0, 8, 0)，configureButton的方法如下：</p>
+
+<pre><code>- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(8, 0, 8, 0);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@"purple_button.png"]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+</code></pre>
+
+<p>类似上面得例子，图片可以横向拉伸，但纵向没有：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-7.03.20-AM.png" alt="Screen-Shot-2013-10-24-at-7.03.20-AM" /></p>
+
+<h2 id="section-3">双向拉伸</h2>
+
+<p>为了让图片同时在横向和纵向拉伸，我们需要忽略上/下、左/右8像素：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/purple_button_both-1.png" alt="purple_button_both-1" /></p>
+
+<p>我们只需要简单地设置UIEdgeInsets为UIEdgeInsetsMake(8, 8, 8, 8)，在每个方向上忽略8像素：</p>
+
+<pre><code>- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@"purple_button.png"]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+</code></pre>
+
+<p>Voilà! 我们现在拥有一个非常好看地按钮：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.32.55-AM.png" alt="Screen-Shot-2013-10-24-at-6.32.55-AM" /></p>
+
+<p>无论什么时候，只要你需要一个紫色的按钮，你只需要一张小的方图，然后忽略其边角部分并将中间部分不断复制，就可以将原图改变成任意大小。</p>
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#ios-ref">
+    		ios <span>3</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#iOS-ref">iOS <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#stretchable button-ref">stretchable button <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#UIEdgeInsetsMake-ref">UIEdgeInsetsMake <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/ios/2014/07/28/UIView" title="UIView">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next"><a href="/ios/2014/07/31/uipickerview" title="UIPickerView">Next &raquo;</a></li>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>&copy; 2014 ray tan
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </div>
+    </div id="footer">
+
+    
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+

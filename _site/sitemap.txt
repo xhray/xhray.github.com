@@ -10,4 +10,5 @@ http://xhray.github.io/sitemap.txt
 http://xhray.github.io/tags.html
 
 http://xhray.github.io/ios/2014/07/31/uipickerview
+http://xhray.github.io/ios/2014/07/31/make-stretchable-button-with-uiedgeinsetsmake
 http://xhray.github.io/ios/2014/07/28/UIView
