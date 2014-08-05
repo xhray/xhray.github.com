@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>UIView</title>
-    
+    <title>iOS SDK相关问题</title>
+    <meta name="description" content="">
     <meta name="author" content="ray tan">
 
     <!-- Enable responsive viewport -->
@@ -134,39 +134,72 @@
       <div class="container">
         
 <div class="page-header">
-  <h1>UIView </h1>
+  <h1>iOS SDK相关问题 </h1>
 </div>
 
 <div class="row post-full">
   <div class="col-xs-12">
     <div class="date">
-      <span>28 July 2014</span>
+      <span>03 August 2014</span>
     </div>
     <div class="content">
       
-<h2 id="layoutsubviews">layoutSubviews</h2>
-
-<p>布局subviews</p>
-
-<p>- (void)layoutSubviews</p>
-
-<h3 id="section">概述</h3>
-
-<p>该方法的默认实现对于iOS 5.1及其之前的版本无效。否则，默认的实现方法会使用你设置的所有约束去确定所有subviews的size和position。</p>
-
-<p>在需要更精准地布局subviews的时候，派生类可以覆盖这个方法。只有在subviews的autoresizing和contraint-base behaviors不能提供你想要的行为时，你才应该去覆盖这个方法。你可以使用自身实现的方法去设置subviews的frame rectangles。</p>
-
-<p>你不应该直接调用该方法。如果想要强制更新布局，需要调用<em>setNeedsLayout</em>方法来通知系统在下次绘图时更新布局。如果需要立即更新views，则需要调用<em>layoutIfNeeded</em>。</p>
+<h2 id="loadviewviewdidload">1. loadView和viewDidLoad的不同之处?</h2>
 
 <blockquote>
-  <p>在重写该方法时，可以获取view上将要显示的数据。因此，可以根据这些数据来对subviews进行更精细的布局，如控制文本的高度。</p>
+
+  <p>不要在loadView里读取self.view。只设置，不读取！</p>
+
+  <p>读取self.view的时，若view没有被加载，get方法会调用loadView方法。若在loadView方法里读取self.view，会造成循环调用。</p>
 </blockquote>
 
-<h2 id="drawrect">drawRect:</h2>
+<blockquote>
 
-<p>在指定的矩形区域内绘制接收者的图片。</p>
+  <p>通常情况下，会在loadView中构建试图，如：</p>
+</blockquote>
 
-<p>- (void)drawRect:(CGRect)rect</p>
+<pre><code>UIView *view = [UIView alloc] init...];
+...
+[view addSubview:whatever];
+[view addSubView:whatever2];
+...
+self.view = view;
+[view release];
+</code></pre>
+
+<blockquote>
+
+  <p>loadView是UIViewController中加载view并将其赋给属性“view”的方法。当从UIViewController派生子类时，可以重写loadView方法设置view属性。</p>
+</blockquote>
+
+<blockquote>
+
+  <p>当view加载完成时，viewDidLoad会被调用。viewDidLoad在loadView之后被调用，在这里可以进一步控制view的设置。</p>
+</blockquote>
+
+<p>reference: <a href="http://stackoverflow.com/a/574291">iPhone SDK: what is the difference between loadView and viewDidLoad?</a></p>
+
+<h2 id="add-subviews-viewdidappear-viewdidload-viewwillappear">2. 在哪里add subviews: ViewDidAppear? ViewDidLoad? ViewWillAppear?</h2>
+
+<ul>
+  <li>viewDidLoad - 当需要控制子view跟随view一同呈现时，需要将添加子view这个动作放到ViewDidLoad方法。该方法在view加载到内存时被调用。比如：假设view是一个包含3个label的form，那么就将增加label到view上这个动作放到ViewDidLoad。</li>
+  <li>viewWillAppear － 通常用来更新数据。继续上面的例子，通过在这个方法中加载服务器数据到form上。创建UIView属于较为消耗大的操作，应该尽量避免在ViewWillAppepear进行这个操作。当这个方法被调用时，意味着设备已经准备好将UIView呈现给用户，在这里进行任何消耗大的操作会影响性能，并且用户能切实感受到（比如动画延时）。</li>
+  <li>viewDidAppear － 在这个方法中，开启新的线程去执行那些执行时间长的事情。比如调用webservice为form获取额外的数据。幸好的是view已经准备好并呈现给用户，因此，在加载数据时，你可以向用户提示友好的“Waiting”信息。</li>
+</ul>
+
+<p>reference: <a href="http://stackoverflow.com/a/2281560">viewDidLoad, viewWillAppear, viewDidAppear</a></p>
+
+<h2 id="loadview">3. 何时重写loadView</h2>
+
+<ul>
+  <li>当在view controller及其派生类中使用自定义root view时，就应该在loadView方法中创建view，并将其设置为view controller的view属性（注意不要调用super）。</li>
+  <li>在viewDidLoad方法中修改view controller’s view或为其添加subview</li>
+  <li>推荐的做法是在viewDidLoad中创建UILabel或UIWebView，并在viewDidUnload将它们释放，并将它们的引用变量设为nil。</li>
+</ul>
+
+<p>reference: <a href="http://stackoverflow.com/a/2280642">loadView</a></p>
+
+<h2 id="arcdeallocnilhttpstackoverflowcomq7906804">4. <a href="http://stackoverflow.com/q/7906804">ARC模式下，是否需要在dealloc方法中设置属性为nil</a></h2>
 
 
     </div>
@@ -199,11 +232,13 @@
 
   
      
-    	<li><a href="/tags.html#UIView-ref">UIView <span>1</span></a></li>
+    	<li><a href="/tags.html#loadView-ref">loadView <span>1</span></a></li>
      
-    	<li><a href="/tags.html#layoutSubviews-ref">layoutSubviews <span>1</span></a></li>
+    	<li><a href="/tags.html#viewDidLoad-ref">viewDidLoad <span>1</span></a></li>
      
-    	<li><a href="/tags.html#drawRect-ref">drawRect <span>1</span></a></li>
+    	<li><a href="/tags.html#viewWillAppear-ref">viewWillAppear <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#viewDidAppear-ref">viewDidAppear <span>1</span></a></li>
     
   
 
@@ -215,11 +250,11 @@
     <hr>
     <ul class="pagination">
     
-      <li class="prev disabled"><a>&larr; Previous</a></li>
+      <li class="prev"><a href="/ios/2014/07/31/uipickerview" title="UIPickerView">&laquo; Previous</a></li>
     
       <li><a href="/archive.html">Archive</a></li>
     
-      <li class="next"><a href="/ios/2014/07/31/make-stretchable-button-with-uiedgeinsetsmake" title="iOS：使用UIEdgeInsetsMake制作可伸缩按钮">Next &raquo;</a></li>
+      <li class="next"><a href="/ios/2014/08/05/what-is-a-retain-cycle" title="什么是引用循环（retain cycle）？">Next &raquo;</a></li>
     
     </ul>
     <hr>

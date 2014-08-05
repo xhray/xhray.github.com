@@ -10,7 +10,7 @@ tags: [iOS, stretchable button, UIEdgeInsetsMake]
 
 在一个iOS app里，通常会使用很多的button。而这些button有同样的背景色（backgroud）但在不同的屏幕上有不同的大小（即使在iOS7上，button没有背景）。举个例子，Save button会比Submit button短，但它们都以紫色为背景色。
 
-在此情况下，你通常不想为button定义各种不同大小背景图片。幸运地，使用**UIEdgeInsetsMake**方法可以非常容易地另一张这样的图片：
+在此情况下，你通常不想为button定义各种不同大小背景图片。幸运地，使用**UIEdgeInsetsMake**方法可以非常容易地令一张这样的图片：
 
 ![origin image](http://natashatherobot.com/wp-content/uploads/purple_button@2x.png)
 

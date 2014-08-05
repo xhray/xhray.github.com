@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Archive</title>
-    
+    <title>什么是引用循环（retain cycle）？</title>
+    <meta name="description" content="">
     <meta name="author" content="ray tan">
 
     <!-- Enable responsive viewport -->
@@ -69,7 +69,7 @@
     
       
       	
-      	<li class="active"><a href="/archive.html" class="active">Archive</a></li>
+      	<li><a href="/archive.html">Archive</a></li>
       	
       
     
@@ -134,99 +134,102 @@
       <div class="container">
         
 <div class="page-header">
-  <h1>Archive </h1>
+  <h1>什么是引用循环（retain cycle）？ </h1>
 </div>
 
-<div class="row">
+<div class="row post-full">
   <div class="col-xs-12">
-    
-
-
-
-
-
-  
-    
-    
-    
-    
-  
-    
-      <h2>2014</h2>
-      <h3>August</h3>
-      <ul>
-    
-  
-    <li><span>August  5, 2014</span> &raquo; <a href="/ios/2014/08/05/what-is-a-retain-cycle">什么是引用循环（retain cycle）？</a></li>
-  
-    
-          
-        
+    <div class="date">
+      <span>05 August 2014</span>
+    </div>
+    <div class="content">
       
-    
+<p>引用循环（retain cycle）会发生在像Objective-C这样的基于引用计数（retain count）内存管理技术的语言中。当对象被创建时，其引用计数为1。当其它对象引用它时，引用计数增加；当其它对象释放它时，引用计数减少。当对象的引用计数为0时，运行时（runtime）会将其释放（deallocate），这时对象的dealloc方法被调用。</p>
+
+<p>假设有两个对象A和B，A创建并引用B。创建A的对象会负责释放A，假设A的dealloc方法会release B，当B的引用计数为0时，B被释放。为简单起见，假设没有其它额外的对象引用A或B。</p>
+
+<p>但如果B需要引用A，增加A的引用计数时会怎样？创建A的对象会释放A，但是B现在也引用A，A的引用计数不为0。另一方面，A引用B，因此B的引用计数也不为0，A和B都不会被释放。B的dealloc方法不会被调用，因此计算B在其dealloc方法调用A的release方法也没有作用。</p>
+
+<p>在此情况下，就发生了内存泄漏（memory leak）：没有其它对A或B的引用，但A和B都没有被释放。如果A和B正在做任何消耗cpu的东西，应用也会发生leaking CPU time。</p>
+
+<p>reference: </p>
+
+<p><a href="http://www.quora.com/What-is-a-retain-cycle">What is a retain cycle?</a></p>
+
+
+    </div>
+
   
-    
-    
-    
-    
-  
-    
-  
-    <li><span>August  3, 2014</span> &raquo; <a href="/ios/2014/08/03/ios-sdk-related-problems">iOS SDK相关问题</a></li>
-  
-    
-          
-        
-          </ul>
-          <h3>July</h3>
-          <ul>
-        
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-open"></i></li>
       
-    
-  
-    
-    
-    
-    
-  
-    
-  
-    <li><span>July 31, 2014</span> &raquo; <a href="/ios/2014/07/31/uipickerview">UIPickerView</a></li>
-  
-    
-          
-        
       
+
+
+  
+     
+    	<li><a href="/categories.html#ios-ref">
+    		ios <span>5</span>
+    	</a></li>
     
   
+
+
+    </ul>
     
-    
-    
-    
+
   
-    
-  
-    <li><span>July 31, 2014</span> &raquo; <a href="/ios/2014/07/31/make-stretchable-button-with-uiedgeinsetsmake">iOS：使用UIEdgeInsetsMake制作可伸缩按钮</a></li>
-  
-    
-          
-        
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-tags"></i></li>
       
+      
+
+
+  
+     
+    	<li><a href="/tags.html#retain cycle-ref">retain cycle <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#dealloc-ref">dealloc <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#memory leak-ref">memory leak <span>1</span></a></li>
     
   
-    
-    
-    
-    
-  
-    
-  
-    <li><span>July 28, 2014</span> &raquo; <a href="/ios/2014/07/28/UIView">UIView</a></li>
-  
-    
-      </ul>
+
+
+
+    </ul>
     
   
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/ios/2014/08/03/ios-sdk-related-problems" title="iOS SDK相关问题">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next disabled"><a>Next &rarr;</a>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
 
 
   </div>
