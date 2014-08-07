@@ -201,6 +201,84 @@ self.view = view;
 
 <h2 id="arcdeallocnilhttpstackoverflowcomq7906804">4. <a href="http://stackoverflow.com/q/7906804">ARC模式下，是否需要在dealloc方法中设置属性为nil</a></h2>
 
+<blockquote>
+
+</blockquote>
+
+<h2 id="objective-c-class-extension">5. Objective-C class extension</h2>
+
+<p>Q: 在class extension中定义私有方法和完全不声明私有方法之间的差异？</p>
+
+<pre><code>@interface Class()
+
+- (void)bar;
+
+@end
+
+
+@implementation Class
+
+- (void)foo
+{
+	[self bar];
+}
+
+- (void)bar
+{
+	NSLog(@"bar")
+}
+
+@end
+</code></pre>
+
+<p>和</p>
+
+<pre><code>@implementaion Class
+
+- (void)foo
+{
+	[self bar];
+}
+
+- (void)bar
+{
+	NSLog(@"bar");
+}
+
+@end
+</code></pre>
+
+<p>A: 现在不需要声明私有方法。在不久前，私有方法需要预先声明，大多数人选择在class extension中声明。从Xcode 4.4开始，编译器已经有能力检测implementation中的私有方法，从而不需要在别处预先声明。</p>
+
+<p>Q: 在class extension中声明变量和implementation中的差异？</p>
+
+<pre><code>@interface Class()
+{
+	NSArray *mySortedArray;
+}
+
+@end
+
+@implementation Class
+
+@end
+</code></pre>
+
+<p>和</p>
+
+<pre><code>@implementation Class
+
+NSArray *mySortedArray;
+
+@end	
+</code></pre>
+
+<p>A: 在class extension中声明的变量是类的实例变量，而在implementation中直接声明的变量是全局变量（遵循c的全局变量语义）！</p>
+
+<p>reference：</p>
+
+<p><a href="http://stackoverflow.com/a/14675389">Objective-C class extension</a>	</p>
+
 
     </div>
 
@@ -239,6 +317,14 @@ self.view = view;
     	<li><a href="/tags.html#viewWillAppear-ref">viewWillAppear <span>1</span></a></li>
      
     	<li><a href="/tags.html#viewDidAppear-ref">viewDidAppear <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Objective-C-ref">Objective-C <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#class extension-ref">class extension <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#ivars-ref">ivars <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#instance variables-ref">instance variables <span>1</span></a></li>
     
   
 

@@ -4,7 +4,7 @@
  <title>xhray's blog</title>
  <link href="http://xhray.github.io/" rel="self"/>
  <link href="http://xhray.github.io"/>
- <updated>2014-08-05T10:21:25+08:00</updated>
+ <updated>2014-08-07T10:43:25+08:00</updated>
  <id>http://xhray.github.io</id>
  <author>
    <name>ray tan</name>
@@ -95,6 +95,84 @@ self.view = view;
 &lt;p&gt;reference: &lt;a href=&quot;http://stackoverflow.com/a/2280642&quot;&gt;loadView&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;arcdeallocnilhttpstackoverflowcomq7906804&quot;&gt;4. &lt;a href=&quot;http://stackoverflow.com/q/7906804&quot;&gt;ARC模式下，是否需要在dealloc方法中设置属性为nil&lt;/a&gt;&lt;/h2&gt;
+
+&lt;blockquote&gt;
+
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;objective-c-class-extension&quot;&gt;5. Objective-C class extension&lt;/h2&gt;
+
+&lt;p&gt;Q: 在class extension中定义私有方法和完全不声明私有方法之间的差异？&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface Class()
+
+- (void)bar;
+
+@end
+
+
+@implementation Class
+
+- (void)foo
+{
+	[self bar];
+}
+
+- (void)bar
+{
+	NSLog(@&quot;bar&quot;)
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;和&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@implementaion Class
+
+- (void)foo
+{
+	[self bar];
+}
+
+- (void)bar
+{
+	NSLog(@&quot;bar&quot;);
+}
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A: 现在不需要声明私有方法。在不久前，私有方法需要预先声明，大多数人选择在class extension中声明。从Xcode 4.4开始，编译器已经有能力检测implementation中的私有方法，从而不需要在别处预先声明。&lt;/p&gt;
+
+&lt;p&gt;Q: 在class extension中声明变量和implementation中的差异？&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@interface Class()
+{
+	NSArray *mySortedArray;
+}
+
+@end
+
+@implementation Class
+
+@end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;和&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;@implementation Class
+
+NSArray *mySortedArray;
+
+@end	
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A: 在class extension中声明的变量是类的实例变量，而在implementation中直接声明的变量是全局变量（遵循c的全局变量语义）！&lt;/p&gt;
+
+&lt;p&gt;reference：&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/a/14675389&quot;&gt;Objective-C class extension&lt;/a&gt;	&lt;/p&gt;
 
 </content>
  </entry>

@@ -3,7 +3,7 @@ layout: post
 title: "iOS SDK相关问题"
 description: ""
 category: iOS
-tags: [loadView, viewDidLoad, viewWillAppear, viewDidAppear]
+tags: [loadView, viewDidLoad, viewWillAppear, viewDidAppear, Objective-C, class extension, ivars, instance variables, private methods]
 ---
 {% include JB/setup %}
 
@@ -51,8 +51,80 @@ reference: [viewDidLoad, viewWillAppear, viewDidAppear](http://stackoverflow.com
 
 reference: [loadView](http://stackoverflow.com/a/2280642)
 
+
 ## 4. [ARC模式下，是否需要在dealloc方法中设置属性为nil](http://stackoverflow.com/q/7906804)
 
+>
 
+
+## 5. Objective-C class extension
+
+Q: 在class extension中定义私有方法和完全不声明私有方法之间的差异？
+
+	@interface Class()
+	
+	- (void)bar;
+	
+	@end
+	
+	
+	@implementation Class
+	
+	- (void)foo
+	{
+		[self bar];
+	}
+	
+	- (void)bar
+	{
+		NSLog(@"bar")
+	}
+	
+	@end
+	
+和
+
+	@implementaion Class
+	
+	- (void)foo
+	{
+		[self bar];
+	}
+	
+	- (void)bar
+	{
+		NSLog(@"bar");
+	}
+	
+	@end
+
+A: 现在不需要声明私有方法。在不久前，私有方法需要预先声明，大多数人选择在class extension中声明。从Xcode 4.4开始，编译器已经有能力检测implementation中的私有方法，从而不需要在别处预先声明。
+
+Q: 在class extension中声明变量和implementation中的差异？
+
+	@interface Class()
+	{
+		NSArray *mySortedArray;
+	}
+	
+	@end
+	
+	@implementation Class
+	
+	@end
+	
+和
+
+	@implementation Class
+	
+	NSArray *mySortedArray;
+	
+	@end	
+	
+A: 在class extension中声明的变量是类的实例变量，而在implementation中直接声明的变量是全局变量（遵循c的全局变量语义）！
+
+reference：
+
+[Objective-C class extension](http://stackoverflow.com/a/14675389)	
 
 
