@@ -7,7 +7,7 @@ tags: [loadView, viewDidLoad, viewWillAppear, viewDidAppear, Objective-C, class 
 ---
 {% include JB/setup %}
 
-## 1. loadView和viewDidLoad的不同之处?
+## loadView和viewDidLoad的不同之处?
 
 >
 不要在loadView里读取self.view。只设置，不读取！
@@ -34,7 +34,21 @@ UIViewController在loadView方法中加载view并将其赋给属性“view”的
 reference: [iPhone SDK: what is the difference between loadView and viewDidLoad?](http://stackoverflow.com/a/574291)
 
 
-## 2. 在哪里add subviews: ViewDidAppear? ViewDidLoad? ViewWillAppear?
+## iOS6，viewDidUnload、viewWillUnload过期
+
+苹果官方文档提到：
+
+>
+这个方法在controller的view被释放时调用。在iOS6中，viewDidUnload被抛弃。在low-memory的情况下，views不会被清除。因此这个方法不会被调用。(Deprecated in iOS6.0. Views are no longer purged under low-memory conditions and so this method is never called.)
+
+从iOS6开始，没有必要controller对view或其它对象的引用。
+
+***可以在ViewController的didReceiveMemoryWarning方法中设置view或其它组件为nil。可以覆盖该方法来释放被view controller使用的任何多余的内存。但app中不应该调用这个方法，当系统检测到内存紧张时，会自动调用该方法。***
+
+***在重写didReceiveMemoryWarning时，最好的做法时不要释放任何view对象，只释放那些不再需要的个人数据(custom data)。至于view对象，就让view controller的父类来处理。***
+
+
+## 在哪里add subviews: ViewDidAppear? ViewDidLoad? ViewWillAppear?
 
 * viewDidLoad - 当需要控制子view跟随view一同呈现时，需要将添加子view这个动作放到ViewDidLoad方法。该方法在view加载到内存时被调用。比如：假设view是一个包含3个label的form，那么就将增加label到view上这个动作放到ViewDidLoad。
 * viewWillAppear － 通常用来更新数据。继续上面的例子，通过在这个方法中加载服务器数据到form上。创建UIView属于较为消耗大的操作，应该尽量避免在ViewWillAppepear进行这个操作。当这个方法被调用时，意味着设备已经准备好将UIView呈现给用户，在这里进行任何消耗大的操作会影响性能，并且用户能切实感受到（比如动画延时）。
@@ -43,7 +57,7 @@ reference: [iPhone SDK: what is the difference between loadView and viewDidLoad?
 reference: [viewDidLoad, viewWillAppear, viewDidAppear](http://stackoverflow.com/a/2281560)
 
 
-## 3. 何时重写loadView
+## 何时重写loadView
 
 * 当在view controller及其派生类中使用自定义root view时，就应该在loadView方法中创建view，并将其设置为view controller的view属性（注意不要调用super）。
 * 在viewDidLoad方法中修改view controller's view或为其添加subview
@@ -52,7 +66,7 @@ reference: [viewDidLoad, viewWillAppear, viewDidAppear](http://stackoverflow.com
 reference: [loadView](http://stackoverflow.com/a/2280642)
 
 
-## 4. ARC模式下，是否需要在dealloc方法中设置属性为nil
+## ARC模式下，是否需要在dealloc方法中设置属性为nil
 
 就算在手动管理内存模式（MRR, manual memory management），也不应该在dealloc中设置property为nil。
 
@@ -68,7 +82,7 @@ reference:
 [Do I set properties to nil in dealloc when using ARC](http://stackoverflow.com/a/7906891)
 
 
-## 5. Objective-C class extension
+## Objective-C class extension
 
 Q: 在class extension中定义私有方法和完全不声明私有方法之间的差异？
 
