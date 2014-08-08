@@ -15,7 +15,7 @@ tags: [loadView, viewDidLoad, viewWillAppear, viewDidAppear, Objective-C, class 
 读取self.view的时，若view没有被加载，get方法会调用loadView方法。若在loadView方法里读取self.view，会造成循环调用。
 
 >
-通常情况下，会在loadView中构建试图，如：
+通常情况下，会在loadView中构建视图，如：
 
 	UIView *view = [UIView alloc] init...];
 	...
@@ -26,7 +26,7 @@ tags: [loadView, viewDidLoad, viewWillAppear, viewDidAppear, Objective-C, class 
 	[view release];
 
 >
-loadView是UIViewController中加载view并将其赋给属性“view”的方法。当从UIViewController派生子类时，可以重写loadView方法设置view属性。
+UIViewController在loadView方法中加载view并将其赋给属性“view”的方法。当从UIViewController派生子类时，可以重写loadView方法设置view属性。
 
 >
 当view加载完成时，viewDidLoad会被调用。viewDidLoad在loadView之后被调用，在这里可以进一步控制view的设置。
@@ -52,9 +52,20 @@ reference: [viewDidLoad, viewWillAppear, viewDidAppear](http://stackoverflow.com
 reference: [loadView](http://stackoverflow.com/a/2280642)
 
 
-## 4. [ARC模式下，是否需要在dealloc方法中设置属性为nil](http://stackoverflow.com/q/7906804)
+## 4. ARC模式下，是否需要在dealloc方法中设置属性为nil
 
->
+就算在手动管理内存模式（MRR, manual memory management），也不应该在dealloc中设置property为nil。
+
+在MRR模式下，你应该释放实例变量（ivars）。设置property为nil会调用set方法，而set方法可能包含不应该在dealloc方法执行的代码。也有可能会触发KVO notifications。释放ivar而不是property可以避免产生未预期的结果。
+
+在ARC模式下，系统会自动释放ivars。如果所做的只是这些，你甚至不需要实现dealloc方法。但如果代码包含分配缓冲区（buffers）等非对象（non-objects）ivars，你还是需要在dealloc方法中处理它们。
+
+进一步说，如果将自身设为其它对象的delegate，那么在dealloc方法中，你应该解除这种关系（代码如下：[obj setDelegate = nil]），但delegate属性为weak的情况除外。
+
+
+reference:
+
+[Do I set properties to nil in dealloc when using ARC](http://stackoverflow.com/a/7906891)
 
 
 ## 5. Objective-C class extension
