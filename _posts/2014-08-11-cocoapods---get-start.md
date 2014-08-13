@@ -107,6 +107,10 @@ CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是�
 
 s.source指定代码库地址， s.source_files指定所需文件的所在的文件夹，s.frameworks指定需要用到的framework。
 
+可以使用以下命令初始化一个podspec文件：
+
+	pod spec create PODSPEC_NAME
+
 接着，编辑开发项目中的Podfile，添加：
 
 	pod '[project]', :local => '~/[path]/[project].podspec'
@@ -211,7 +215,7 @@ s.source指定代码库地址， s.source_files指定所需文件的所在的文
 
 私有repo搭建完成后，客户端需要在本机配置相应的repo（~/.cocoapods/）：
 
-	pod repo add REPO_NAME SOURCE_URL
+	pod repo add REPO_NAME SOURCE_URL	
 	
 添加Podspec到repo（若已经添加，则这步可以忽略）：
 
@@ -219,9 +223,11 @@ s.source指定代码库地址， s.source_files指定所需文件的所在的文
 
 每次执行 `pod install --no-repo-update`或 `pod update --no-repo-update`前，需要更新一下本地的repo（当私有repo有更新时）：
 
-	pod repo update repo_name 	
+	pod repo update REPO_NAME 	
 	
+删除repo时，可以使用命令：
 
+	pod repo remove REPO_NAME
 
 
 ---

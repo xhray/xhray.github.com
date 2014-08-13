@@ -5,8 +5,8 @@
         <description>xhray's blog - ray tan</description>
         <link>http://xhray.github.io</link>
         <link>http://xhray.github.io</link>
-        <lastBuildDate>2014-08-13T12:25:01+08:00</lastBuildDate>
-        <pubDate>2014-08-13T12:25:01+08:00</pubDate>
+        <lastBuildDate>2014-08-13T16:01:03+08:00</lastBuildDate>
+        <pubDate>2014-08-13T16:01:03+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -121,12 +121,17 @@ end
 
 &lt;p&gt;s.source指定代码库地址， s.source_files指定所需文件的所在的文件夹，s.frameworks指定需要用到的framework。&lt;/p&gt;
 
+&lt;p&gt;可以使用以下命令初始化一个podspec文件：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod spec create PODSPEC_NAME
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;p&gt;接着，编辑开发项目中的Podfile，添加：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;pod &#39;[project]&#39;, :local =&amp;gt; &#39;~/[path]/[project].podspec&#39;
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;或使用podspec放在gist上：&lt;/p&gt;
+&lt;p&gt;或将podspec放在gist上：&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;pod &#39;[project]&#39;, :podspec =&amp;gt; &#39;https://xxx.github.com/gist/....&#39;	 	
 &lt;/code&gt;&lt;/pre&gt;
@@ -230,7 +235,7 @@ end
 
 &lt;p&gt;私有repo搭建完成后，客户端需要在本机配置相应的repo（~/.cocoapods/）：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;pod repo add REPO_NAME SOURCE_URL
+&lt;pre&gt;&lt;code&gt;pod repo add REPO_NAME SOURCE_URL	
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;添加Podspec到repo（若已经添加，则这步可以忽略）：&lt;/p&gt;
@@ -238,25 +243,37 @@ end
 &lt;pre&gt;&lt;code&gt;pod repo push REPO_NAME SPEC_NAME.podspec	
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;每次执行 &lt;code&gt;pod install --no-repo-update&lt;/code&gt;或 &lt;code&gt;pod update --no-repo-update&lt;/code&gt;时，需要更新一下本地的repo（当私有repo有更新时）：&lt;/p&gt;
+&lt;p&gt;每次执行 &lt;code&gt;pod install --no-repo-update&lt;/code&gt;或 &lt;code&gt;pod update --no-repo-update&lt;/code&gt;前，需要更新一下本地的repo（当私有repo有更新时）：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;pod repo update repo_name 	
+&lt;pre&gt;&lt;code&gt;pod repo update REPO_NAME 	
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;hr /&gt;
+&lt;p&gt;删除repo时，可以使用命令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod repo remove REPO_NAME
+&lt;/code&gt;&lt;/pre&gt;
+
 &lt;hr /&gt;
 
 &lt;p&gt;reference:&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;http://guides.cocoapods.org&quot;&gt;CocoaPods Guides&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.raywenderlich.com/64546/introduction-to-cocoapods-2&quot;&gt;Introduction to CocoaPods Tutorial&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.itiger.me/?p=74&quot;&gt;使用CocoaPods管理私有库&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec&quot;&gt;AFNetworking podspec&lt;/a&gt;	&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://www.exiatian.com/cocoapods安装使用及配置私有库/&quot;&gt;CocoaPods安装使用及配置私有库&lt;/a&gt;	&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://guides.cocoapods.org&quot;&gt;CocoaPods Guides&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.raywenderlich.com/64546/introduction-to-cocoapods-2&quot;&gt;Introduction to CocoaPods Tutorial&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.itiger.me/?p=74&quot;&gt;使用CocoaPods管理私有库&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec&quot;&gt;AFNetworking podspec&lt;/a&gt;	&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.exiatian.com/cocoapods安装使用及配置私有库/&quot;&gt;CocoaPods安装使用及配置私有库&lt;/a&gt;	&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 </description>
                 <link>http://xhray.github.io/ios/2014/08/11/cocoapods---get-start</link>

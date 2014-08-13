@@ -252,12 +252,17 @@ end
 
 <p>s.source指定代码库地址， s.source_files指定所需文件的所在的文件夹，s.frameworks指定需要用到的framework。</p>
 
+<p>可以使用以下命令初始化一个podspec文件：</p>
+
+<pre><code>pod spec create PODSPEC_NAME
+</code></pre>
+
 <p>接着，编辑开发项目中的Podfile，添加：</p>
 
 <pre><code>pod '[project]', :local =&gt; '~/[path]/[project].podspec'
 </code></pre>
 
-<p>或使用podspec放在gist上：</p>
+<p>或将podspec放在gist上：</p>
 
 <pre><code>pod '[project]', :podspec =&gt; 'https://xxx.github.com/gist/....'	 	
 </code></pre>
@@ -361,7 +366,7 @@ end
 
 <p>私有repo搭建完成后，客户端需要在本机配置相应的repo（~/.cocoapods/）：</p>
 
-<pre><code>pod repo add REPO_NAME SOURCE_URL
+<pre><code>pod repo add REPO_NAME SOURCE_URL	
 </code></pre>
 
 <p>添加Podspec到repo（若已经添加，则这步可以忽略）：</p>
@@ -369,25 +374,37 @@ end
 <pre><code>pod repo push REPO_NAME SPEC_NAME.podspec	
 </code></pre>
 
-<p>每次执行 <code>pod install --no-repo-update</code>或 <code>pod update --no-repo-update</code>时，需要更新一下本地的repo（当私有repo有更新时）：</p>
+<p>每次执行 <code>pod install --no-repo-update</code>或 <code>pod update --no-repo-update</code>前，需要更新一下本地的repo（当私有repo有更新时）：</p>
 
-<pre><code>pod repo update repo_name 	
+<pre><code>pod repo update REPO_NAME 	
 </code></pre>
 
-<hr />
+<p>删除repo时，可以使用命令：</p>
+
+<pre><code>pod repo remove REPO_NAME
+</code></pre>
+
 <hr />
 
 <p>reference:</p>
 
-<p><a href="http://guides.cocoapods.org">CocoaPods Guides</a></p>
-
-<p><a href="http://www.raywenderlich.com/64546/introduction-to-cocoapods-2">Introduction to CocoaPods Tutorial</a></p>
-
-<p><a href="http://www.itiger.me/?p=74">使用CocoaPods管理私有库</a></p>
-
-<p><a href="https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec">AFNetworking podspec</a>	</p>
-
-<p><a href="http://www.exiatian.com/cocoapods安装使用及配置私有库/">CocoaPods安装使用及配置私有库</a>	</p>
+<ul>
+  <li>
+    <p><a href="http://guides.cocoapods.org">CocoaPods Guides</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.raywenderlich.com/64546/introduction-to-cocoapods-2">Introduction to CocoaPods Tutorial</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.itiger.me/?p=74">使用CocoaPods管理私有库</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec">AFNetworking podspec</a>	</p>
+  </li>
+  <li>
+    <p><a href="http://www.exiatian.com/cocoapods安装使用及配置私有库/">CocoaPods安装使用及配置私有库</a>	</p>
+  </li>
+</ul>
 
 
     </div>
