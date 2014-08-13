@@ -214,7 +214,7 @@ end
 pod 'AFNetworking', '2.0'       //只使用2.0版本
 pod 'AFNetworking', '&gt; 2.0'     //使用高于2.0的版本
 pod 'AFNetworking', '&gt;= 2.0'    //使用不低于2.0的版本
-pod 'AFNetworking', '&lt; 2.0'	     //使用小于2.0的版本
+pod 'AFNetworking', '&lt; 2.0'	//使用小于2.0的版本
 pod 'AFNetworking'. '&lt;= 2.0'    //使用不高于2.0的版本
 pod 'AFNetworking', '~&gt; 0.1.2'  //使用大于等于0.1.2，小于0.2的版本
 pod 'AFNetworking', '~&gt; 0.1'    //使用大于等于0.1，小于1.0的版本
@@ -242,7 +242,7 @@ pod 'AFNetworking', '~&gt; 0'      //使用高于0的版本，写这个和什么
 	s.summary = '[summary]'
 	s.homepage = 'http://www.xxx.com'
 	s.description = '[s.description]'
-	s.author = {'Dandan Huang' =&gt; 'f@itiger.me' }
+	s.author = {'author_name' =&gt; 'email' }
 	s.source = { :git =&gt; 'https://github.com/[username]/[repository].git', :tag =&gt; '0.0.1' }
 	s.platform = :ios,'5.0'
 	s.source_files = 'src'
@@ -280,13 +280,14 @@ pod update
 	s.summary      = "common lib for ios team."
 	
 	s.description  = &lt;&lt;-DESC
-                 commonlib for ios development, includes UI components, UIHelper, NetworkHelper, etc.
-               DESC
+                      commonlib for ios development, includes UI components, UIHelper, NetworkHelper, etc.
+                     DESC
                
 	s.homepage     = "http://[host]/ios-project-libs/commonlib"
     
 	s.license      = "MIT"
-	s.authors      = { "author_name" =&gt; "email" }		s.platform     = :ios, '6.0'
+	s.authors      = { "author_name" =&gt; "email" }
+	s.platform     = :ios, '6.0'
 	s.source       = { :git =&gt; "http://[host]/ios-project-libs/commonlib.git", :tag =&gt; "v0.0.1" }
     
 	s.resources = "CommonLib/Resource/Localization", "CommonLib/Resource/Images"

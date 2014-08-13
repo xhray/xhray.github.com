@@ -70,7 +70,7 @@ CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是�
 	pod 'AFNetworking', '2.0'       //只使用2.0版本
 	pod 'AFNetworking', '> 2.0'     //使用高于2.0的版本
 	pod 'AFNetworking', '>= 2.0'    //使用不低于2.0的版本
-	pod 'AFNetworking', '< 2.0'	     //使用小于2.0的版本
+	pod 'AFNetworking', '< 2.0'	//使用小于2.0的版本
 	pod 'AFNetworking'. '<= 2.0'    //使用不高于2.0的版本
 	pod 'AFNetworking', '~> 0.1.2'  //使用大于等于0.1.2，小于0.2的版本
 	pod 'AFNetworking', '~> 0.1'    //使用大于等于0.1，小于1.0的版本
@@ -98,7 +98,7 @@ CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是�
     	s.summary = '[summary]'
     	s.homepage = 'http://www.xxx.com'
     	s.description = '[s.description]'
-    	s.author = {'Dandan Huang' => 'f@itiger.me' }
+    	s.author = {'author_name' => 'email' }
     	s.source = { :git => 'https://github.com/[username]/[repository].git', :tag => '0.0.1' }
     	s.platform = :ios,'5.0'
     	s.source_files = 'src'
@@ -132,13 +132,14 @@ s.source指定代码库地址， s.source_files指定所需文件的所在的文
 		s.summary      = "common lib for ios team."
 		
 		s.description  = <<-DESC
-                     commonlib for ios development, includes UI components, UIHelper, NetworkHelper, etc.
-                   DESC
+                          commonlib for ios development, includes UI components, UIHelper, NetworkHelper, etc.
+                         DESC
                    
 		s.homepage     = "http://[host]/ios-project-libs/commonlib"
         
 		s.license      = "MIT"
-		s.authors      = { "author_name" => "email" }		s.platform     = :ios, '6.0'
+		s.authors      = { "author_name" => "email" }
+		s.platform     = :ios, '6.0'
 		s.source       = { :git => "http://[host]/ios-project-libs/commonlib.git", :tag => "v0.0.1" }
         
 		s.resources = "CommonLib/Resource/Localization", "CommonLib/Resource/Images"

@@ -5,8 +5,8 @@
         <description>xhray's blog - ray tan</description>
         <link>http://xhray.github.io</link>
         <link>http://xhray.github.io</link>
-        <lastBuildDate>2014-08-13T11:43:24+08:00</lastBuildDate>
-        <pubDate>2014-08-13T11:43:24+08:00</pubDate>
+        <lastBuildDate>2014-08-13T12:16:10+08:00</lastBuildDate>
+        <pubDate>2014-08-13T12:16:10+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -83,7 +83,7 @@ end
 pod &#39;AFNetworking&#39;, &#39;2.0&#39;       //只使用2.0版本
 pod &#39;AFNetworking&#39;, &#39;&amp;gt; 2.0&#39;     //使用高于2.0的版本
 pod &#39;AFNetworking&#39;, &#39;&amp;gt;= 2.0&#39;    //使用不低于2.0的版本
-pod &#39;AFNetworking&#39;, &#39;&amp;lt; 2.0&#39;	     //使用小于2.0的版本
+pod &#39;AFNetworking&#39;, &#39;&amp;lt; 2.0&#39;	//使用小于2.0的版本
 pod &#39;AFNetworking&#39;. &#39;&amp;lt;= 2.0&#39;    //使用不高于2.0的版本
 pod &#39;AFNetworking&#39;, &#39;~&amp;gt; 0.1.2&#39;  //使用大于等于0.1.2，小于0.2的版本
 pod &#39;AFNetworking&#39;, &#39;~&amp;gt; 0.1&#39;    //使用大于等于0.1，小于1.0的版本
@@ -111,7 +111,7 @@ pod &#39;AFNetworking&#39;, &#39;~&amp;gt; 0&#39;      //使用高于0的版本�
 	s.summary = &#39;[summary]&#39;
 	s.homepage = &#39;http://www.xxx.com&#39;
 	s.description = &#39;[s.description]&#39;
-	s.author = {&#39;Dandan Huang&#39; =&amp;gt; &#39;f@itiger.me&#39; }
+	s.author = {&#39;author_name&#39; =&amp;gt; &#39;email&#39; }
 	s.source = { :git =&amp;gt; &#39;https://github.com/[username]/[repository].git&#39;, :tag =&amp;gt; &#39;0.0.1&#39; }
 	s.platform = :ios,&#39;5.0&#39;
 	s.source_files = &#39;src&#39;
@@ -149,13 +149,14 @@ pod update
 	s.summary      = &quot;common lib for ios team.&quot;
 	
 	s.description  = &amp;lt;&amp;lt;-DESC
-                 commonlib for ios development, includes UI components, UIHelper, NetworkHelper, etc.
-               DESC
+                      commonlib for ios development, includes UI components, UIHelper, NetworkHelper, etc.
+                     DESC
                
 	s.homepage     = &quot;http://[host]/ios-project-libs/commonlib&quot;
     
 	s.license      = &quot;MIT&quot;
-	s.authors      = { &quot;author_name&quot; =&amp;gt; &quot;email&quot; }		s.platform     = :ios, &#39;6.0&#39;
+	s.authors      = { &quot;author_name&quot; =&amp;gt; &quot;email&quot; }
+	s.platform     = :ios, &#39;6.0&#39;
 	s.source       = { :git =&amp;gt; &quot;http://[host]/ios-project-libs/commonlib.git&quot;, :tag =&amp;gt; &quot;v0.0.1&quot; }
     
 	s.resources = &quot;CommonLib/Resource/Localization&quot;, &quot;CommonLib/Resource/Images&quot;
