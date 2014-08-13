@@ -144,7 +144,7 @@
     </div>
     <div class="content">
       
-<h2 id="loadviewviewdidload">1. loadView和viewDidLoad的不同之处?</h2>
+<h2 id="loadviewviewdidload">loadView和viewDidLoad的不同之处?</h2>
 
 <blockquote>
 
@@ -155,7 +155,7 @@
 
 <blockquote>
 
-  <p>通常情况下，会在loadView中构建试图，如：</p>
+  <p>通常情况下，会在loadView中构建视图，如：</p>
 </blockquote>
 
 <pre><code>UIView *view = [UIView alloc] init...];
@@ -169,7 +169,7 @@ self.view = view;
 
 <blockquote>
 
-  <p>loadView是UIViewController中加载view并将其赋给属性“view”的方法。当从UIViewController派生子类时，可以重写loadView方法设置view属性。</p>
+  <p>UIViewController在loadView方法中加载view并将其赋给属性“view”的方法。当从UIViewController派生子类时，可以重写loadView方法设置view属性。</p>
 </blockquote>
 
 <blockquote>
@@ -179,7 +179,22 @@ self.view = view;
 
 <p>reference: <a href="http://stackoverflow.com/a/574291">iPhone SDK: what is the difference between loadView and viewDidLoad?</a></p>
 
-<h2 id="add-subviews-viewdidappear-viewdidload-viewwillappear">2. 在哪里add subviews: ViewDidAppear? ViewDidLoad? ViewWillAppear?</h2>
+<h2 id="ios6viewdidunloadviewwillunload">iOS6，viewDidUnload、viewWillUnload过期</h2>
+
+<p>苹果官方文档提到：</p>
+
+<blockquote>
+
+  <p>这个方法在controller的view被释放时调用。在iOS6中，viewDidUnload被抛弃。在low-memory的情况下，views不会被清除。因此这个方法不会被调用。(Deprecated in iOS6.0. Views are no longer purged under low-memory conditions and so this method is never called.)</p>
+</blockquote>
+
+<p>从iOS6开始，没有必要controller对view或其它对象的引用。</p>
+
+<p><strong><em>可以在ViewController的didReceiveMemoryWarning方法中设置view或其它组件为nil。可以覆盖该方法来释放被view controller使用的任何多余的内存。但app中不应该调用这个方法，当系统检测到内存紧张时，会自动调用该方法。</em></strong></p>
+
+<p><strong><em>在重写didReceiveMemoryWarning时，最好的做法时不要释放任何view对象，只释放那些不再需要的个人数据(custom data)。至于view对象，就让view controller的父类来处理。</em></strong></p>
+
+<h2 id="add-subviews-viewdidappear-viewdidload-viewwillappear">在哪里add subviews: ViewDidAppear? ViewDidLoad? ViewWillAppear?</h2>
 
 <ul>
   <li>viewDidLoad - 当需要控制子view跟随view一同呈现时，需要将添加子view这个动作放到ViewDidLoad方法。该方法在view加载到内存时被调用。比如：假设view是一个包含3个label的form，那么就将增加label到view上这个动作放到ViewDidLoad。</li>
@@ -189,7 +204,7 @@ self.view = view;
 
 <p>reference: <a href="http://stackoverflow.com/a/2281560">viewDidLoad, viewWillAppear, viewDidAppear</a></p>
 
-<h2 id="loadview">3. 何时重写loadView</h2>
+<h2 id="loadview">何时重写loadView</h2>
 
 <ul>
   <li>当在view controller及其派生类中使用自定义root view时，就应该在loadView方法中创建view，并将其设置为view controller的view属性（注意不要调用super）。</li>
@@ -199,13 +214,21 @@ self.view = view;
 
 <p>reference: <a href="http://stackoverflow.com/a/2280642">loadView</a></p>
 
-<h2 id="arcdeallocnilhttpstackoverflowcomq7906804">4. <a href="http://stackoverflow.com/q/7906804">ARC模式下，是否需要在dealloc方法中设置属性为nil</a></h2>
+<h2 id="arcdeallocnil">ARC模式下，是否需要在dealloc方法中设置属性为nil</h2>
 
-<blockquote>
+<p>就算在手动管理内存模式（MRR, manual memory management），也不应该在dealloc中设置property为nil。</p>
 
-</blockquote>
+<p>在MRR模式下，你应该释放实例变量（ivars）。设置property为nil会调用set方法，而set方法可能包含不应该在dealloc方法执行的代码。也有可能会触发KVO notifications。释放ivar而不是property可以避免产生未预期的结果。</p>
 
-<h2 id="objective-c-class-extension">5. Objective-C class extension</h2>
+<p>在ARC模式下，系统会自动释放ivars。如果所做的只是这些，你甚至不需要实现dealloc方法。但如果代码包含分配缓冲区（buffers）等非对象（non-objects）ivars，你还是需要在dealloc方法中处理它们。</p>
+
+<p>进一步说，如果将自身设为其它对象的delegate，那么在dealloc方法中，你应该解除这种关系（代码如下：[obj setDelegate = nil]），但delegate属性为weak的情况除外。</p>
+
+<p>reference:</p>
+
+<p><a href="http://stackoverflow.com/a/7906891">Do I set properties to nil in dealloc when using ARC</a></p>
+
+<h2 id="objective-c-class-extension">Objective-C class extension</h2>
 
 <p>Q: 在class extension中定义私有方法和完全不声明私有方法之间的差异？</p>
 
@@ -292,7 +315,7 @@ NSArray *mySortedArray;
   
      
     	<li><a href="/categories.html#ios-ref">
-    		ios <span>5</span>
+    		ios <span>6</span>
     	</a></li>
     
   
@@ -325,6 +348,8 @@ NSArray *mySortedArray;
     	<li><a href="/tags.html#ivars-ref">ivars <span>1</span></a></li>
      
     	<li><a href="/tags.html#instance variables-ref">instance variables <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#private methods-ref">private methods <span>1</span></a></li>
     
   
 

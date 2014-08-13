@@ -4,13 +4,242 @@
  <title>xhray's blog</title>
  <link href="http://xhray.github.io/" rel="self"/>
  <link href="http://xhray.github.io"/>
- <updated>2014-08-07T10:43:25+08:00</updated>
+ <updated>2014-08-13T10:59:49+08:00</updated>
  <id>http://xhray.github.io</id>
  <author>
    <name>ray tan</name>
    <email>rayfuture@gmail.com</email>
  </author>
 
+ 
+ <entry>
+   <title>CocoaPods - 起步</title>
+   <link href="http://xhray.github.io/ios/2014/08/11/cocoapods---get-start"/>
+   <updated>2014-08-11T00:00:00+08:00</updated>
+   <id>http://xhray.github.io/ios/2014/08/11/cocoapods---get-start</id>
+   <content type="html">
+&lt;h2 id=&quot;cocoapods&quot;&gt;安装CocoaPods&lt;/h2&gt;
+
+&lt;p&gt;CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是更新RubyGems。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo gem update --system
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行命令后，会在终端看到类似下面的输出：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://cdn2.raywenderlich.com/wp-content/uploads/2014/03/TerminalOutput.png&quot; alt=&quot;TerminalOutput&quot; /&gt;	&lt;/p&gt;
+
+&lt;p&gt;执行下面的命令安装CocoaPods:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo gem install cocoapods
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装过程中终端可能会弹出一下需要你确认的信息：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;rake&#39;s executable &quot;rake&quot; conflicts with /usr/bin/rake
+Overwrite the executable? [yN]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;如果是，直接输入y确认。&lt;/p&gt;
+
+&lt;p&gt;最后，输入以下命令完成CocoaPods安装(这个命令将&lt;a href=&quot;https://github.com/CocoaPods/Specs&quot;&gt;CocoaPods Specs repository&lt;/a&gt; clone到本机的~/.cocoapods/目录下)：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod setup
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;cocoapods-1&quot;&gt;CocoaPods使用&lt;/h2&gt;
+
+&lt;p&gt;在终端中进入项目所在目录，然后执行以下命令为项目创建默认的Podfile。你需要在Podfile中声明本项目的依赖项。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod init	
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;执行以下命令，可以使用Xcode打开Podfile进行编辑：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;open -a Xcode Podfile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;不要使用TextEdit进行编辑，TextEdit会替换标准的引号，导致CocoaPods出错&lt;/em&gt;&lt;/strong&gt;	&lt;/p&gt;
+
+&lt;p&gt;初始时，Podfile的内容如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Uncomment this line to define a global platform for your project
+# platform :ios, &quot;6.0&quot;
+ 
+target &quot;ShowTracker&quot; do
+ 
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;将&lt;strong&gt;&lt;em&gt;# platform :ios, “6.0”&lt;/em&gt;&lt;/strong&gt;修改为：&lt;strong&gt;&lt;em&gt;platform :ios, “7.0”&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;这个语句告诉CocoaPods，本项目基于iOS7.&lt;/p&gt;
+
+&lt;p&gt;接着，向Podfile增加依赖项目：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod &#39;AFNetworking&#39;, &#39;2.2.1&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;保存并退出编辑。&lt;/p&gt;
+
+&lt;p&gt;执行安装依赖项目的命令：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;安装成功后，使用&lt;strong&gt;&lt;em&gt;[project].xcworkspace&lt;/em&gt;&lt;/strong&gt;打开项目&lt;/p&gt;
+
+&lt;h2 id=&quot;section&quot;&gt;管理私有库&lt;/h2&gt;
+
+&lt;p&gt;首先，为需要管理的库创建新的git repository，并打上Tag，如v0.0.1&lt;/p&gt;
+
+&lt;p&gt;然后，新建一个用来配置作者等信息的[project].podspec文件:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Pod::Spec.new do |s|
+	s.name = &#39;[ProjectName]&#39;
+	s.version = &#39;0.0.1&#39;
+	s.license = &#39;MIT&#39;
+	s.summary = &#39;[summary]&#39;
+	s.homepage = &#39;http://www.xxx.com&#39;
+	s.description = &#39;[s.description]&#39;
+	s.author = {&#39;Dandan Huang&#39; =&amp;gt; &#39;f@itiger.me&#39; }
+	s.source = { :git =&amp;gt; &#39;https://github.com/[username]/[repository].git&#39;, :tag =&amp;gt; &#39;0.0.1&#39; }
+	s.platform = :ios,&#39;5.0&#39;
+	s.source_files = &#39;src&#39;
+	s.frameworks = &#39;SomeFramework&#39;,&#39;AnotherFramework&#39;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;s.source指定代码库地址， s.source_files指定所需文件的所在的文件夹，s.frameworks指定需要用到的framework。&lt;/p&gt;
+
+&lt;p&gt;接着，编辑开发项目中的Podfile，添加：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod &#39;[project]&#39;, :local =&amp;gt; &#39;~/[path]/[project].podspec&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;或使用podspec放在gist上：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod &#39;[project]&#39;, :podspec =&amp;gt; &#39;https://xxx.github.com/gist/....&#39;	  最后，使用：
+
+pod update
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;需要注意：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;s.name需要和本podspec文件的名称一致，区分大小写&lt;/li&gt;
+  &lt;li&gt;可以在git上打tag，在podspec文件上指定:tag。这样可以保证repo对外保持稳定，不受开发状态影响。&lt;/li&gt;
+  &lt;li&gt;可以根据功能/模块对podspec进行分块(subspec)，这样其他人可以选择安装lib的一个/多个子集。在Podfile中，&lt;code&gt;pod &#39;CommonLib&#39;&lt;/code&gt;安装整个CommonLib。如只需要其中的UI模块，可以使用 &lt;code&gt;pod &#39;CommonLib/UI&#39;&lt;/code&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;一个完整的podspec例子：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Pod::Spec.new do |s|
+	s.name         = &quot;CommonLib&quot;
+	s.version      = &quot;0.0.1&quot;
+	s.summary      = &quot;common lib for ios team.&quot;
+	
+	s.description  = &amp;lt;&amp;lt;-DESC
+                 commonlib for ios development, includes UI components, UIHelper, NetworkHelper, etc.
+               DESC
+               
+	s.homepage     = &quot;http://[host]/ios-project-libs/commonlib&quot;
+    
+	s.license      = &quot;MIT&quot;
+	s.authors      = { &quot;author_name&quot; =&amp;gt; &quot;email&quot; }		s.platform     = :ios, &#39;6.0&#39;
+	s.source       = { :git =&amp;gt; &quot;http://[host]/ios-project-libs/commonlib.git&quot;, :tag =&amp;gt; &quot;v0.0.1&quot; }
+    
+	s.resources = &quot;CommonLib/Resource/Localization&quot;, &quot;CommonLib/Resource/Images&quot;
+
+	s.dependency &quot;AFNetworking&quot;, &quot;~&amp;gt; 2.3.1&quot;
+	s.dependency &quot;AFNetworking-MUResponseSerializer&quot;, &quot;0.9.9&quot;
+	s.dependency &quot;Masonry&quot;, &quot;~&amp;gt; 0.5.2&quot;
+
+	s.requires_arc = true
+
+	s.prefix_header_contents = &amp;lt;&amp;lt;-EOS
+                          #ifdef __OBJC__
+                            #import &amp;lt;Foundation/Foundation.h&amp;gt;
+
+                            #define MAS_SHORTHAND
+                            #import &quot;Masonry.h&quot;
+ 				 
+                            #import &quot;AFNetworking.h&quot;
+                            #import &quot;MUResponseSerializer.h&quot;
+		 
+                          #endif
+
+                        EOS
+
+	s.subspec &quot;Models&quot; do |ss|
+
+		ss.source_files = &quot;CommonLib/Models&quot;, &quot;CommonLib/Models/**/*.{h,m}&quot;
+
+	end
+  
+	s.subspec &quot;Utils&quot; do |ss|
+
+		ss.dependency &quot;CommonLib/Models&quot;
+		ss.source_files = &quot;CommonLib/Common&quot;, &quot;CommonLib/Common/**/*.{h,m}&quot;
+
+	end
+
+	s.subspec &quot;Library&quot; do |ss|
+
+		ss.source_files = &quot;CommonLib/Library&quot;, &quot;CommonLib/Library/**/*.{h,m}&quot;
+
+	end
+
+	s.subspec &quot;UI&quot; do |ss|
+
+		ss.dependency &quot;CommonLib/Utils&quot;
+		ss.dependency &quot;CommonLib/Library&quot;
+
+		ss.prefix_header_contents = &amp;lt;&amp;lt;-EOS
+                             		  #import &quot;GMDebugHeader.h&quot;
+                            		 EOS
+
+		ss.exclude_files = &quot;CommonLib/Views/UITest.{h,m}&quot;
+
+		ss.source_files = &quot;CommonLib/Views&quot;, &quot;CommonLib/Views/**/*.{h,m}&quot;
+
+	end
+
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;修改podspec文件后，可以执行以下命令校验：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod spec lint
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在搭建私有公共库时（可以在podfile中，以这样的形式使用：&lt;code&gt;pod &#39;CommonLib&#39;, &#39;~&amp;gt; 0.0.1&#39;&lt;/code&gt;），还需要另外搭建私有的repo，并将项目的podspec文件上传到repo。&lt;/p&gt;
+
+&lt;p&gt;私有repo搭建完成后，客户端需要在本机配置相应的repo（~/.cocoapods/）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod repo add repo_name http://[host]/specs.git
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;每次执行 &lt;code&gt;pod install --no-repo-update&lt;/code&gt;或 &lt;code&gt;pod update --no-repo-update&lt;/code&gt;时，需要更新一下本地的repo（当私有repo有更新时）：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod repo update repo_name 	
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+&lt;hr /&gt;
+
+&lt;p&gt;reference:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://guides.cocoapods.org&quot;&gt;CocoaPods Guides&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.raywenderlich.com/64546/introduction-to-cocoapods-2&quot;&gt;Introduction to CocoaPods Tutorial&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.itiger.me/?p=74&quot;&gt;使用CocoaPods管理私有库&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec&quot;&gt;AFNetworking podspec&lt;/a&gt;		&lt;/p&gt;
+
+</content>
+ </entry>
  
  <entry>
    <title>什么是引用循环（retain cycle）？</title>
@@ -39,7 +268,7 @@
    <updated>2014-08-03T00:00:00+08:00</updated>
    <id>http://xhray.github.io/ios/2014/08/03/ios-sdk-related-problems</id>
    <content type="html">
-&lt;h2 id=&quot;loadviewviewdidload&quot;&gt;1. loadView和viewDidLoad的不同之处?&lt;/h2&gt;
+&lt;h2 id=&quot;loadviewviewdidload&quot;&gt;loadView和viewDidLoad的不同之处?&lt;/h2&gt;
 
 &lt;blockquote&gt;
 
@@ -50,7 +279,7 @@
 
 &lt;blockquote&gt;
 
-  &lt;p&gt;通常情况下，会在loadView中构建试图，如：&lt;/p&gt;
+  &lt;p&gt;通常情况下，会在loadView中构建视图，如：&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;pre&gt;&lt;code&gt;UIView *view = [UIView alloc] init...];
@@ -64,7 +293,7 @@ self.view = view;
 
 &lt;blockquote&gt;
 
-  &lt;p&gt;loadView是UIViewController中加载view并将其赋给属性“view”的方法。当从UIViewController派生子类时，可以重写loadView方法设置view属性。&lt;/p&gt;
+  &lt;p&gt;UIViewController在loadView方法中加载view并将其赋给属性“view”的方法。当从UIViewController派生子类时，可以重写loadView方法设置view属性。&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;blockquote&gt;
@@ -74,7 +303,22 @@ self.view = view;
 
 &lt;p&gt;reference: &lt;a href=&quot;http://stackoverflow.com/a/574291&quot;&gt;iPhone SDK: what is the difference between loadView and viewDidLoad?&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;add-subviews-viewdidappear-viewdidload-viewwillappear&quot;&gt;2. 在哪里add subviews: ViewDidAppear? ViewDidLoad? ViewWillAppear?&lt;/h2&gt;
+&lt;h2 id=&quot;ios6viewdidunloadviewwillunload&quot;&gt;iOS6，viewDidUnload、viewWillUnload过期&lt;/h2&gt;
+
+&lt;p&gt;苹果官方文档提到：&lt;/p&gt;
+
+&lt;blockquote&gt;
+
+  &lt;p&gt;这个方法在controller的view被释放时调用。在iOS6中，viewDidUnload被抛弃。在low-memory的情况下，views不会被清除。因此这个方法不会被调用。(Deprecated in iOS6.0. Views are no longer purged under low-memory conditions and so this method is never called.)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;从iOS6开始，没有必要controller对view或其它对象的引用。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;可以在ViewController的didReceiveMemoryWarning方法中设置view或其它组件为nil。可以覆盖该方法来释放被view controller使用的任何多余的内存。但app中不应该调用这个方法，当系统检测到内存紧张时，会自动调用该方法。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;在重写didReceiveMemoryWarning时，最好的做法时不要释放任何view对象，只释放那些不再需要的个人数据(custom data)。至于view对象，就让view controller的父类来处理。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;add-subviews-viewdidappear-viewdidload-viewwillappear&quot;&gt;在哪里add subviews: ViewDidAppear? ViewDidLoad? ViewWillAppear?&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;viewDidLoad - 当需要控制子view跟随view一同呈现时，需要将添加子view这个动作放到ViewDidLoad方法。该方法在view加载到内存时被调用。比如：假设view是一个包含3个label的form，那么就将增加label到view上这个动作放到ViewDidLoad。&lt;/li&gt;
@@ -84,7 +328,7 @@ self.view = view;
 
 &lt;p&gt;reference: &lt;a href=&quot;http://stackoverflow.com/a/2281560&quot;&gt;viewDidLoad, viewWillAppear, viewDidAppear&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;loadview&quot;&gt;3. 何时重写loadView&lt;/h2&gt;
+&lt;h2 id=&quot;loadview&quot;&gt;何时重写loadView&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;当在view controller及其派生类中使用自定义root view时，就应该在loadView方法中创建view，并将其设置为view controller的view属性（注意不要调用super）。&lt;/li&gt;
@@ -94,13 +338,21 @@ self.view = view;
 
 &lt;p&gt;reference: &lt;a href=&quot;http://stackoverflow.com/a/2280642&quot;&gt;loadView&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;arcdeallocnilhttpstackoverflowcomq7906804&quot;&gt;4. &lt;a href=&quot;http://stackoverflow.com/q/7906804&quot;&gt;ARC模式下，是否需要在dealloc方法中设置属性为nil&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;arcdeallocnil&quot;&gt;ARC模式下，是否需要在dealloc方法中设置属性为nil&lt;/h2&gt;
 
-&lt;blockquote&gt;
+&lt;p&gt;就算在手动管理内存模式（MRR, manual memory management），也不应该在dealloc中设置property为nil。&lt;/p&gt;
 
-&lt;/blockquote&gt;
+&lt;p&gt;在MRR模式下，你应该释放实例变量（ivars）。设置property为nil会调用set方法，而set方法可能包含不应该在dealloc方法执行的代码。也有可能会触发KVO notifications。释放ivar而不是property可以避免产生未预期的结果。&lt;/p&gt;
 
-&lt;h2 id=&quot;objective-c-class-extension&quot;&gt;5. Objective-C class extension&lt;/h2&gt;
+&lt;p&gt;在ARC模式下，系统会自动释放ivars。如果所做的只是这些，你甚至不需要实现dealloc方法。但如果代码包含分配缓冲区（buffers）等非对象（non-objects）ivars，你还是需要在dealloc方法中处理它们。&lt;/p&gt;
+
+&lt;p&gt;进一步说，如果将自身设为其它对象的delegate，那么在dealloc方法中，你应该解除这种关系（代码如下：[obj setDelegate = nil]），但delegate属性为weak的情况除外。&lt;/p&gt;
+
+&lt;p&gt;reference:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/a/7906891&quot;&gt;Do I set properties to nil in dealloc when using ARC&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;objective-c-class-extension&quot;&gt;Objective-C class extension&lt;/h2&gt;
 
 &lt;p&gt;Q: 在class extension中定义私有方法和完全不声明私有方法之间的差异？&lt;/p&gt;
 

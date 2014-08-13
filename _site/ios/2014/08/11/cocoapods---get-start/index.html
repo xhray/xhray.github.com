@@ -1,0 +1,477 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>CocoaPods - 起步</title>
+    <meta name="description" content="">
+    <meta name="author" content="ray tan">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap styles -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Optional theme -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- Sticky Footer -->
+    <link href="/assets/themes/bootstrap-3/bootstrap/css/bs-sticky-footer.css" rel="stylesheet">
+    
+    <!-- Custom styles -->
+    <link href="/assets/themes/bootstrap-3/css/style.css?body=1" rel="stylesheet" type="text/css" media="all">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!-- Update these with your own images
+      <link rel="shortcut icon" href="images/favicon.ico">
+      <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+    -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+
+  </head>
+
+  <body>
+    <div id="wrap">
+      <nav class="navbar navbar-default" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">xhray's blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="jb-navbar-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+            
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive.html">Archive</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories.html">Categories</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages.html">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/tags.html">Tags</a></li>
+      	
+      
+    
+  
+
+
+
+          </ul>
+          <form class="navbar-form navbar-right" role="search">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+          </form>
+        </div><!-- /.navbar-collapse -->
+      </nav>
+
+      <div class="container">
+        
+<div class="page-header">
+  <h1>CocoaPods - 起步 </h1>
+</div>
+
+<div class="row post-full">
+  <div class="col-xs-12">
+    <div class="date">
+      <span>11 August 2014</span>
+    </div>
+    <div class="content">
+      
+<h2 id="cocoapods">安装CocoaPods</h2>
+
+<p>CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是更新RubyGems。</p>
+
+<pre><code>sudo gem update --system
+</code></pre>
+
+<p>执行命令后，会在终端看到类似下面的输出：</p>
+
+<p><img src="http://cdn2.raywenderlich.com/wp-content/uploads/2014/03/TerminalOutput.png" alt="TerminalOutput" />	</p>
+
+<p>执行下面的命令安装CocoaPods:</p>
+
+<pre><code>sudo gem install cocoapods
+</code></pre>
+
+<p>安装过程中终端可能会弹出一下需要你确认的信息：</p>
+
+<pre><code>rake's executable "rake" conflicts with /usr/bin/rake
+Overwrite the executable? [yN]
+</code></pre>
+
+<p>如果是，直接输入y确认。</p>
+
+<p>最后，输入以下命令完成CocoaPods安装(这个命令将<a href="https://github.com/CocoaPods/Specs">CocoaPods Specs repository</a> clone到本机的~/.cocoapods/目录下)：</p>
+
+<pre><code>pod setup
+</code></pre>
+
+<h2 id="cocoapods-1">CocoaPods使用</h2>
+
+<p>在终端中进入项目所在目录，然后执行以下命令为项目创建默认的Podfile。你需要在Podfile中声明本项目的依赖项。</p>
+
+<pre><code>pod init	
+</code></pre>
+
+<p>执行以下命令，可以使用Xcode打开Podfile进行编辑：</p>
+
+<pre><code>open -a Xcode Podfile
+</code></pre>
+
+<p><strong><em>不要使用TextEdit进行编辑，TextEdit会替换标准的引号，导致CocoaPods出错</em></strong>	</p>
+
+<p>初始时，Podfile的内容如下：</p>
+
+<pre><code># Uncomment this line to define a global platform for your project
+# platform :ios, "6.0"
+ 
+target "ShowTracker" do
+ 
+end
+</code></pre>
+
+<p>将<strong><em># platform :ios, “6.0”</em></strong>修改为：<strong><em>platform :ios, “7.0”</em></strong></p>
+
+<p>这个语句告诉CocoaPods，本项目基于iOS7.</p>
+
+<p>接着，向Podfile增加依赖项目：</p>
+
+<pre><code>pod 'AFNetworking', '2.2.1'
+</code></pre>
+
+<p>保存并退出编辑。</p>
+
+<p>执行安装依赖项目的命令：</p>
+
+<pre><code>pod install
+</code></pre>
+
+<p>安装成功后，使用<strong><em>[project].xcworkspace</em></strong>打开项目</p>
+
+<h2 id="section">管理私有库</h2>
+
+<p>首先，为需要管理的库创建新的git repository，并打上Tag，如v0.0.1</p>
+
+<p>然后，新建一个用来配置作者等信息的[project].podspec文件:</p>
+
+<pre><code>Pod::Spec.new do |s|
+	s.name = '[ProjectName]'
+	s.version = '0.0.1'
+	s.license = 'MIT'
+	s.summary = '[summary]'
+	s.homepage = 'http://www.xxx.com'
+	s.description = '[s.description]'
+	s.author = {'Dandan Huang' =&gt; 'f@itiger.me' }
+	s.source = { :git =&gt; 'https://github.com/[username]/[repository].git', :tag =&gt; '0.0.1' }
+	s.platform = :ios,'5.0'
+	s.source_files = 'src'
+	s.frameworks = 'SomeFramework','AnotherFramework'
+end
+</code></pre>
+
+<p>s.source指定代码库地址， s.source_files指定所需文件的所在的文件夹，s.frameworks指定需要用到的framework。</p>
+
+<p>接着，编辑开发项目中的Podfile，添加：</p>
+
+<pre><code>pod '[project]', :local =&gt; '~/[path]/[project].podspec'
+</code></pre>
+
+<p>或使用podspec放在gist上：</p>
+
+<pre><code>pod '[project]', :podspec =&gt; 'https://xxx.github.com/gist/....'	  最后，使用：
+
+pod update
+</code></pre>
+
+<p>需要注意：</p>
+
+<ul>
+  <li>s.name需要和本podspec文件的名称一致，区分大小写</li>
+  <li>可以在git上打tag，在podspec文件上指定:tag。这样可以保证repo对外保持稳定，不受开发状态影响。</li>
+  <li>可以根据功能/模块对podspec进行分块(subspec)，这样其他人可以选择安装lib的一个/多个子集。在Podfile中，<code>pod 'CommonLib'</code>安装整个CommonLib。如只需要其中的UI模块，可以使用 <code>pod 'CommonLib/UI'</code>。</li>
+</ul>
+
+<p>一个完整的podspec例子：</p>
+
+<pre><code>Pod::Spec.new do |s|
+	s.name         = "CommonLib"
+	s.version      = "0.0.1"
+	s.summary      = "common lib for ios team."
+	
+	s.description  = &lt;&lt;-DESC
+                 commonlib for ios development, includes UI components, UIHelper, NetworkHelper, etc.
+               DESC
+               
+	s.homepage     = "http://[host]/ios-project-libs/commonlib"
+    
+	s.license      = "MIT"
+	s.authors      = { "author_name" =&gt; "email" }		s.platform     = :ios, '6.0'
+	s.source       = { :git =&gt; "http://[host]/ios-project-libs/commonlib.git", :tag =&gt; "v0.0.1" }
+    
+	s.resources = "CommonLib/Resource/Localization", "CommonLib/Resource/Images"
+
+	s.dependency "AFNetworking", "~&gt; 2.3.1"
+	s.dependency "AFNetworking-MUResponseSerializer", "0.9.9"
+	s.dependency "Masonry", "~&gt; 0.5.2"
+
+	s.requires_arc = true
+
+	s.prefix_header_contents = &lt;&lt;-EOS
+                          #ifdef __OBJC__
+                            #import &lt;Foundation/Foundation.h&gt;
+
+                            #define MAS_SHORTHAND
+                            #import "Masonry.h"
+ 				 
+                            #import "AFNetworking.h"
+                            #import "MUResponseSerializer.h"
+		 
+                          #endif
+
+                        EOS
+
+	s.subspec "Models" do |ss|
+
+		ss.source_files = "CommonLib/Models", "CommonLib/Models/**/*.{h,m}"
+
+	end
+  
+	s.subspec "Utils" do |ss|
+
+		ss.dependency "CommonLib/Models"
+		ss.source_files = "CommonLib/Common", "CommonLib/Common/**/*.{h,m}"
+
+	end
+
+	s.subspec "Library" do |ss|
+
+		ss.source_files = "CommonLib/Library", "CommonLib/Library/**/*.{h,m}"
+
+	end
+
+	s.subspec "UI" do |ss|
+
+		ss.dependency "CommonLib/Utils"
+		ss.dependency "CommonLib/Library"
+
+		ss.prefix_header_contents = &lt;&lt;-EOS
+                             		  #import "GMDebugHeader.h"
+                            		 EOS
+
+		ss.exclude_files = "CommonLib/Views/UITest.{h,m}"
+
+		ss.source_files = "CommonLib/Views", "CommonLib/Views/**/*.{h,m}"
+
+	end
+
+end
+</code></pre>
+
+<p>修改podspec文件后，可以执行以下命令校验：</p>
+
+<pre><code>pod spec lint
+</code></pre>
+
+<p>在搭建私有公共库时（可以在podfile中，以这样的形式使用：<code>pod 'CommonLib', '~&gt; 0.0.1'</code>），还需要另外搭建私有的repo，并将项目的podspec文件上传到repo。</p>
+
+<p>私有repo搭建完成后，客户端需要在本机配置相应的repo（~/.cocoapods/）：</p>
+
+<pre><code>pod repo add repo_name http://[host]/specs.git
+</code></pre>
+
+<p>每次执行 <code>pod install --no-repo-update</code>或 <code>pod update --no-repo-update</code>时，需要更新一下本地的repo（当私有repo有更新时）：</p>
+
+<pre><code>pod repo update repo_name 	
+</code></pre>
+
+<hr />
+<hr />
+
+<p>reference:</p>
+
+<p><a href="http://guides.cocoapods.org">CocoaPods Guides</a></p>
+
+<p><a href="http://www.raywenderlich.com/64546/introduction-to-cocoapods-2">Introduction to CocoaPods Tutorial</a></p>
+
+<p><a href="http://www.itiger.me/?p=74">使用CocoaPods管理私有库</a></p>
+
+<p><a href="https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec">AFNetworking podspec</a>		</p>
+
+
+    </div>
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-open"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/categories.html#ios-ref">
+    		ios <span>6</span>
+    	</a></li>
+    
+  
+
+
+    </ul>
+    
+
+  
+    <ul class="tag_box inline">
+      <li><i class="glyphicon-tags"></i></li>
+      
+      
+
+
+  
+     
+    	<li><a href="/tags.html#iOS-ref">iOS <span>2</span></a></li>
+     
+    	<li><a href="/tags.html#Xcode-ref">Xcode <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#CocoaPods-ref">CocoaPods <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#pod repo-ref">pod repo <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#Podfile-ref">Podfile <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#podspec-ref">podspec <span>1</span></a></li>
+     
+    	<li><a href="/tags.html#依赖项管理-ref">依赖项管理 <span>1</span></a></li>
+    
+  
+
+
+
+    </ul>
+    
+  
+    <hr>
+    <ul class="pagination">
+    
+      <li class="prev"><a href="/ios/2014/08/05/what-is-a-retain-cycle" title="什么是引用循环（retain cycle）？">&laquo; Previous</a></li>
+    
+      <li><a href="/archive.html">Archive</a></li>
+    
+      <li class="next disabled"><a>Next &rarr;</a>
+    
+    </ul>
+    <hr>
+    
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_developer = 1;
+    var disqus_shortname = 'jekyllbootstrap'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+  </div>
+</div>
+
+
+      </div>
+
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p>&copy; 2014 ray tan
+          with help from <a href="http://jekyllbootstrap.com" target="_blank" title="The Definitive Jekyll Blogging Framework">Jekyll Bootstrap</a>
+          and <a href="http://twitter.github.com/bootstrap/" target="_blank">Twitter Bootstrap</a>
+        </p>
+      </div>
+    </div id="footer">
+
+    
+
+
+    <!-- Latest compiled and minified JavaScript, requires jQuery 1.x (2.x not supported in IE8) -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/assets/themes/bootstrap-3/bootstrap/js/bootstrap.min.js"></script>
+  </body>
+</html>
+
