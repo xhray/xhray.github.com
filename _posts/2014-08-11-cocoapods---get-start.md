@@ -9,6 +9,8 @@ tags: [iOS, Xcode, CocoaPods, pod repo, Podfile, podspec, 依赖项管理]
 
 ## 安装CocoaPods
 
+### 安装
+
 CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是更新RubyGems。
 
 	sudo gem update --system
@@ -31,7 +33,24 @@ CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是�
 最后，输入以下命令完成CocoaPods安装(这个命令将[CocoaPods Specs repository](https://github.com/CocoaPods/Specs) clone到本机的~/.cocoapods/目录下)：
 
 	pod setup
+
+另外，ruby的软件源rubygems.org被墙，因此需要更新以下ruby的源：
+
+	gem sources --remove https://rubygems.org/
+	gem sources -a http://ruby.taobao.org/
+	gem sources -l
 	
+### 使用CocoaPods镜像索引
+
+所有的项目的Podspec文件都托管在https://github.com/CocoaPods/Specs。第一次执行pod setup时，CocoaPods会将这些podspec索引文件更新到本地的 ~/.cocoapods/目录下，这个索引文件比较大，所以第一次更新时非常慢。
+
+可以将CocoaPods设置成使用国内的CocoaPods索引库镜像：
+
+	pod repo remove master
+	pod repo add master [https://gitcafe.com/akuandev/Specs.git | http://git.oschina.net/akuandev/Specs.git]
+	pod repo update
+	
+---
 	
 ## CocoaPods使用
 
@@ -84,8 +103,19 @@ CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是�
 
 安装成功后，使用***[project].xcworkspace***打开项目
 
+---
 
 ## 管理私有库
+
+基于我们的一些代码不是开源的，或不放到Github的情况，这时就有需要搭建私有repo。
+
+### 概念解析
+
+* podspec：一个pod的配置是什么，pod的代码放在那里
+* Podfile：项目依赖哪个pod，以何种方式依赖，它的podspec放在哪里
+
+
+### 操作步骤
 
 首先，为需要管理的库创建新的git repository，并打上Tag，如v0.0.1
 
@@ -225,9 +255,6 @@ s.source指定代码库地址， s.source_files指定所需文件的所在的文
 
 	pod repo update REPO_NAME 	
 	
-删除repo时，可以使用命令：
-
-	pod repo remove REPO_NAME
 
 
 ---
@@ -243,4 +270,8 @@ reference:
 * [AFNetworking podspec](https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec)	
 
 * [CocoaPods安装使用及配置私有库](http://www.exiatian.com/cocoapods安装使用及配置私有库/)	
+
+* [CocoaPods进阶：本地包管理](http://www.iwangke.me/2013/04/18/advanced-cocoapods/)
+
+* [用CocoaPods做iOS程序的依赖管理](http://blog.devtang.com/blog/2014/05/25/use-cocoapod-to-manage-ios-lib-dependency/)
 	

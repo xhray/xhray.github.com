@@ -5,8 +5,8 @@
         <description>xhray's blog - ray tan</description>
         <link>http://xhray.github.io</link>
         <link>http://xhray.github.io</link>
-        <lastBuildDate>2014-08-13T16:01:03+08:00</lastBuildDate>
-        <pubDate>2014-08-13T16:01:03+08:00</pubDate>
+        <lastBuildDate>2014-08-13T17:00:22+08:00</lastBuildDate>
+        <pubDate>2014-08-13T17:00:22+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -14,6 +14,8 @@
                 <title>CocoaPods - 起步</title>
                 <description>
 &lt;h2 id=&quot;cocoapods&quot;&gt;安装CocoaPods&lt;/h2&gt;
+
+&lt;h3 id=&quot;section&quot;&gt;安装&lt;/h3&gt;
 
 &lt;p&gt;CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是更新RubyGems。&lt;/p&gt;
 
@@ -42,7 +44,27 @@ Overwrite the executable? [yN]
 &lt;pre&gt;&lt;code&gt;pod setup
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&quot;cocoapods-1&quot;&gt;CocoaPods使用&lt;/h2&gt;
+&lt;p&gt;另外，ruby的软件源rubygems.org被墙，因此需要更新以下ruby的源：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;gem sources --remove https://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+gem sources -l
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;cocoapods-1&quot;&gt;使用CocoaPods镜像索引&lt;/h3&gt;
+
+&lt;p&gt;所有的项目的Podspec文件都托管在https://github.com/CocoaPods/Specs。第一次执行pod setup时，CocoaPods会将这些podspec索引文件更新到本地的 ~/.cocoapods/目录下，这个索引文件比较大，所以第一次更新时非常慢。&lt;/p&gt;
+
+&lt;p&gt;可以将CocoaPods设置成使用国内的CocoaPods索引库镜像：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod repo remove master
+pod repo add master [https://gitcafe.com/akuandev/Specs.git | http://git.oschina.net/akuandev/Specs.git]
+pod repo update
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;cocoapods-2&quot;&gt;CocoaPods使用&lt;/h2&gt;
 
 &lt;p&gt;在终端中进入项目所在目录，然后执行以下命令为项目创建默认的Podfile。你需要在Podfile中声明本项目的依赖项。&lt;/p&gt;
 
@@ -98,7 +120,20 @@ pod &#39;AFNetworking&#39;, &#39;~&amp;gt; 0&#39;      //使用高于0的版本�
 
 &lt;p&gt;安装成功后，使用&lt;strong&gt;&lt;em&gt;[project].xcworkspace&lt;/em&gt;&lt;/strong&gt;打开项目&lt;/p&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;管理私有库&lt;/h2&gt;
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;section-1&quot;&gt;管理私有库&lt;/h2&gt;
+
+&lt;p&gt;基于我们的一些代码不是开源的，或不放到Github的情况，这时就有需要搭建私有repo。&lt;/p&gt;
+
+&lt;h3 id=&quot;section-2&quot;&gt;概念解析&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;podspec：一个pod的配置是什么，pod的代码放在那里&lt;/li&gt;
+  &lt;li&gt;Podfile：项目依赖哪个pod，以何种方式依赖，它的podspec放在哪里&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;section-3&quot;&gt;操作步骤&lt;/h3&gt;
 
 &lt;p&gt;首先，为需要管理的库创建新的git repository，并打上Tag，如v0.0.1&lt;/p&gt;
 
@@ -248,11 +283,6 @@ end
 &lt;pre&gt;&lt;code&gt;pod repo update REPO_NAME 	
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;删除repo时，可以使用命令：&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;pod repo remove REPO_NAME
-&lt;/code&gt;&lt;/pre&gt;
-
 &lt;hr /&gt;
 
 &lt;p&gt;reference:&lt;/p&gt;
@@ -272,6 +302,12 @@ end
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;&lt;a href=&quot;http://www.exiatian.com/cocoapods安装使用及配置私有库/&quot;&gt;CocoaPods安装使用及配置私有库&lt;/a&gt;	&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://www.iwangke.me/2013/04/18/advanced-cocoapods/&quot;&gt;CocoaPods进阶：本地包管理&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;http://blog.devtang.com/blog/2014/05/25/use-cocoapod-to-manage-ios-lib-dependency/&quot;&gt;用CocoaPods做iOS程序的依赖管理&lt;/a&gt;&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 

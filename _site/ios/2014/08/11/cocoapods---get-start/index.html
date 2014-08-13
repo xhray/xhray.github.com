@@ -146,6 +146,8 @@
       
 <h2 id="cocoapods">安装CocoaPods</h2>
 
+<h3 id="section">安装</h3>
+
 <p>CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是更新RubyGems。</p>
 
 <pre><code>sudo gem update --system
@@ -173,7 +175,27 @@ Overwrite the executable? [yN]
 <pre><code>pod setup
 </code></pre>
 
-<h2 id="cocoapods-1">CocoaPods使用</h2>
+<p>另外，ruby的软件源rubygems.org被墙，因此需要更新以下ruby的源：</p>
+
+<pre><code>gem sources --remove https://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+gem sources -l
+</code></pre>
+
+<h3 id="cocoapods-1">使用CocoaPods镜像索引</h3>
+
+<p>所有的项目的Podspec文件都托管在https://github.com/CocoaPods/Specs。第一次执行pod setup时，CocoaPods会将这些podspec索引文件更新到本地的 ~/.cocoapods/目录下，这个索引文件比较大，所以第一次更新时非常慢。</p>
+
+<p>可以将CocoaPods设置成使用国内的CocoaPods索引库镜像：</p>
+
+<pre><code>pod repo remove master
+pod repo add master [https://gitcafe.com/akuandev/Specs.git | http://git.oschina.net/akuandev/Specs.git]
+pod repo update
+</code></pre>
+
+<hr />
+
+<h2 id="cocoapods-2">CocoaPods使用</h2>
 
 <p>在终端中进入项目所在目录，然后执行以下命令为项目创建默认的Podfile。你需要在Podfile中声明本项目的依赖项。</p>
 
@@ -229,7 +251,20 @@ pod 'AFNetworking', '~&gt; 0'      //使用高于0的版本，写这个和什么
 
 <p>安装成功后，使用<strong><em>[project].xcworkspace</em></strong>打开项目</p>
 
-<h2 id="section">管理私有库</h2>
+<hr />
+
+<h2 id="section-1">管理私有库</h2>
+
+<p>基于我们的一些代码不是开源的，或不放到Github的情况，这时就有需要搭建私有repo。</p>
+
+<h3 id="section-2">概念解析</h3>
+
+<ul>
+  <li>podspec：一个pod的配置是什么，pod的代码放在那里</li>
+  <li>Podfile：项目依赖哪个pod，以何种方式依赖，它的podspec放在哪里</li>
+</ul>
+
+<h3 id="section-3">操作步骤</h3>
 
 <p>首先，为需要管理的库创建新的git repository，并打上Tag，如v0.0.1</p>
 
@@ -379,11 +414,6 @@ end
 <pre><code>pod repo update REPO_NAME 	
 </code></pre>
 
-<p>删除repo时，可以使用命令：</p>
-
-<pre><code>pod repo remove REPO_NAME
-</code></pre>
-
 <hr />
 
 <p>reference:</p>
@@ -403,6 +433,12 @@ end
   </li>
   <li>
     <p><a href="http://www.exiatian.com/cocoapods安装使用及配置私有库/">CocoaPods安装使用及配置私有库</a>	</p>
+  </li>
+  <li>
+    <p><a href="http://www.iwangke.me/2013/04/18/advanced-cocoapods/">CocoaPods进阶：本地包管理</a></p>
+  </li>
+  <li>
+    <p><a href="http://blog.devtang.com/blog/2014/05/25/use-cocoapod-to-manage-ios-lib-dependency/">用CocoaPods做iOS程序的依赖管理</a></p>
   </li>
 </ul>
 
