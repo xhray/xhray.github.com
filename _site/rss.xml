@@ -5,8 +5,8 @@
         <description>xhray's blog - ray tan</description>
         <link>http://xhray.github.io</link>
         <link>http://xhray.github.io</link>
-        <lastBuildDate>2014-08-13T12:16:10+08:00</lastBuildDate>
-        <pubDate>2014-08-13T12:16:10+08:00</pubDate>
+        <lastBuildDate>2014-08-13T12:25:01+08:00</lastBuildDate>
+        <pubDate>2014-08-13T12:25:01+08:00</pubDate>
         <ttl>1800</ttl>
 
 
@@ -128,9 +128,12 @@ end
 
 &lt;p&gt;或使用podspec放在gist上：&lt;/p&gt;
 
-&lt;pre&gt;&lt;code&gt;pod &#39;[project]&#39;, :podspec =&amp;gt; &#39;https://xxx.github.com/gist/....&#39;	  最后，使用：
+&lt;pre&gt;&lt;code&gt;pod &#39;[project]&#39;, :podspec =&amp;gt; &#39;https://xxx.github.com/gist/....&#39;	 	
+&lt;/code&gt;&lt;/pre&gt;
 
-pod update
+&lt;p&gt;最后，使用：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;pod update
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;需要注意：&lt;/p&gt;

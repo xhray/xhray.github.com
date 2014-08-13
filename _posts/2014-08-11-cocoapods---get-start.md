@@ -111,9 +111,10 @@ s.source指定代码库地址， s.source_files指定所需文件的所在的文
 
 	pod '[project]', :local => '~/[path]/[project].podspec'
 	
-或使用podspec放在gist上：
+或将podspec放在gist上：
 
-	pod '[project]', :podspec => 'https://xxx.github.com/gist/....'	 
+	pod '[project]', :podspec => 'https://xxx.github.com/gist/....'	 	
+
 最后，使用：
 
 	pod update
@@ -216,7 +217,7 @@ s.source指定代码库地址， s.source_files指定所需文件的所在的文
 
 	pod repo push REPO_NAME SPEC_NAME.podspec	
 
-每次执行 `pod install --no-repo-update`或 `pod update --no-repo-update`时，需要更新一下本地的repo（当私有repo有更新时）：
+每次执行 `pod install --no-repo-update`或 `pod update --no-repo-update`前，需要更新一下本地的repo（当私有repo有更新时）：
 
 	pod repo update repo_name 	
 	
@@ -224,17 +225,16 @@ s.source指定代码库地址， s.source_files指定所需文件的所在的文
 
 
 ---
----
 
 reference:
 
-[CocoaPods Guides](http://guides.cocoapods.org)
+* [CocoaPods Guides](http://guides.cocoapods.org)
 
-[Introduction to CocoaPods Tutorial](http://www.raywenderlich.com/64546/introduction-to-cocoapods-2)
+* [Introduction to CocoaPods Tutorial](http://www.raywenderlich.com/64546/introduction-to-cocoapods-2)
 
-[使用CocoaPods管理私有库](http://www.itiger.me/?p=74)
+* [使用CocoaPods管理私有库](http://www.itiger.me/?p=74)
 
-[AFNetworking podspec](https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec)	
+* [AFNetworking podspec](https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec)	
 
-[CocoaPods安装使用及配置私有库](http://www.exiatian.com/cocoapods安装使用及配置私有库/)	
+* [CocoaPods安装使用及配置私有库](http://www.exiatian.com/cocoapods安装使用及配置私有库/)	
 	
