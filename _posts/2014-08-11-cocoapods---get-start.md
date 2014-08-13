@@ -64,6 +64,19 @@ CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是�
 	
 保存并退出编辑。
 
+当我们通过CocoaPods引入依赖库时，需要显式或隐式注明引用的依赖库版本，具体写法和含义如下：
+
+	pod 'AFNetworking'              //不注明版本，每次都获取最新版本
+	pod 'AFNetworking', '2.0'       //只使用2.0版本
+	pod 'AFNetworking', '> 2.0'     //使用高于2.0的版本
+	pod 'AFNetworking', '>= 2.0'    //使用不低于2.0的版本
+	pod 'AFNetworking', '< 2.0'	     //使用小于2.0的版本
+	pod 'AFNetworking'. '<= 2.0'    //使用不高于2.0的版本
+	pod 'AFNetworking', '~> 0.1.2'  //使用大于等于0.1.2，小于0.2的版本
+	pod 'AFNetworking', '~> 0.1'    //使用大于等于0.1，小于1.0的版本
+	pod 'AFNetworking', '~> 1.0.0'  //使用大于等于1.0.0，小于2.0.0的版本
+	pod 'AFNetworking', '~> 0'      //使用高于0的版本，写这个和什么都不写一样，都表示使用最新版本
+
 执行安装依赖项目的命令：
 
 	pod install
@@ -196,7 +209,11 @@ s.source指定代码库地址， s.source_files指定所需文件的所在的文
 
 私有repo搭建完成后，客户端需要在本机配置相应的repo（~/.cocoapods/）：
 
-	pod repo add repo_name http://[host]/specs.git
+	pod repo add REPO_NAME SOURCE_URL
+	
+添加Podspec到repo（若已经添加，则这步可以忽略）：
+
+	pod repo push REPO_NAME SPEC_NAME.podspec	
 
 每次执行 `pod install --no-repo-update`或 `pod update --no-repo-update`时，需要更新一下本地的repo（当私有repo有更新时）：
 
@@ -216,5 +233,7 @@ reference:
 
 [使用CocoaPods管理私有库](http://www.itiger.me/?p=74)
 
-[AFNetworking podspec](https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec)		
+[AFNetworking podspec](https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec)	
+
+[CocoaPods安装使用及配置私有库](http://www.exiatian.com/cocoapods安装使用及配置私有库/)	
 	

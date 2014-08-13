@@ -208,6 +208,20 @@ end
 
 <p>保存并退出编辑。</p>
 
+<p>当我们通过CocoaPods引入依赖库时，需要显式或隐式注明引用的依赖库版本，具体写法和含义如下：</p>
+
+<pre><code>pod 'AFNetworking'              //不注明版本，每次都获取最新版本
+pod 'AFNetworking', '2.0'       //只使用2.0版本
+pod 'AFNetworking', '&gt; 2.0'     //使用高于2.0的版本
+pod 'AFNetworking', '&gt;= 2.0'    //使用不低于2.0的版本
+pod 'AFNetworking', '&lt; 2.0'	     //使用小于2.0的版本
+pod 'AFNetworking'. '&lt;= 2.0'    //使用不高于2.0的版本
+pod 'AFNetworking', '~&gt; 0.1.2'  //使用大于等于0.1.2，小于0.2的版本
+pod 'AFNetworking', '~&gt; 0.1'    //使用大于等于0.1，小于1.0的版本
+pod 'AFNetworking', '~&gt; 1.0.0'  //使用大于等于1.0.0，小于2.0.0的版本
+pod 'AFNetworking', '~&gt; 0'      //使用高于0的版本，写这个和什么都不写一样，都表示使用最新版本
+</code></pre>
+
 <p>执行安装依赖项目的命令：</p>
 
 <pre><code>pod install
@@ -343,7 +357,12 @@ end
 
 <p>私有repo搭建完成后，客户端需要在本机配置相应的repo（~/.cocoapods/）：</p>
 
-<pre><code>pod repo add repo_name http://[host]/specs.git
+<pre><code>pod repo add REPO_NAME SOURCE_URL
+</code></pre>
+
+<p>添加Podspec到repo（若已经添加，则这步可以忽略）：</p>
+
+<pre><code>pod repo push REPO_NAME SPEC_NAME.podspec	
 </code></pre>
 
 <p>每次执行 <code>pod install --no-repo-update</code>或 <code>pod update --no-repo-update</code>时，需要更新一下本地的repo（当私有repo有更新时）：</p>
@@ -362,7 +381,9 @@ end
 
 <p><a href="http://www.itiger.me/?p=74">使用CocoaPods管理私有库</a></p>
 
-<p><a href="https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec">AFNetworking podspec</a>		</p>
+<p><a href="https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec">AFNetworking podspec</a>	</p>
+
+<p><a href="http://www.exiatian.com/cocoapods安装使用及配置私有库/">CocoaPods安装使用及配置私有库</a>	</p>
 
 
     </div>
