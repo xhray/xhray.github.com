@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>welcome to ray's github page!</title>
+    <title>ray@github</title>
     
     <meta name="author" content="ray tan">
 
@@ -134,27 +134,657 @@
       <div class="container">
         
 <div class="page-header">
-  <h1>welcome to ray's github page! </h1>
+  <h1>ray@github </h1>
 </div>
 
 <div class="row">
   <div class="col-xs-12">
     
-<ul class="posts">
-  
-    <li><span>11 Aug 2014</span> &raquo; <a href="/ios/2014/08/11/cocoapods---get-start">CocoaPods - 起步</a></li>
-  
-    <li><span>05 Aug 2014</span> &raquo; <a href="/ios/2014/08/05/what-is-a-retain-cycle">什么是引用循环（retain cycle）？</a></li>
-  
-    <li><span>03 Aug 2014</span> &raquo; <a href="/ios/2014/08/03/ios-sdk-related-problems">iOS SDK相关问题</a></li>
-  
-    <li><span>31 Jul 2014</span> &raquo; <a href="/ios/2014/07/31/uipickerview">UIPickerView</a></li>
-  
-    <li><span>31 Jul 2014</span> &raquo; <a href="/ios/2014/07/31/make-stretchable-button-with-uiedgeinsetsmake">iOS：使用UIEdgeInsetsMake制作可伸缩按钮</a></li>
-  
-    <li><span>28 Jul 2014</span> &raquo; <a href="/ios/2014/07/28/UIView">UIView</a></li>
-  
+<h1 id="cocoapods---ios20140811cocoapods---get-start"><a href="/ios/2014/08/11/cocoapods---get-start">CocoaPods - 起步</a></h1>
+<hr />
+<p>11 Aug 2014</p>
+
+<h2 id="cocoapods">安装CocoaPods</h2>
+
+<h3 id="section">安装</h3>
+
+<p>CocoaPods运行在Ruby，mac一般都会装有。所以，你只需要做的是更新RubyGems。</p>
+
+<pre><code>sudo gem update --system
+</code></pre>
+
+<p>执行命令后，会在终端看到类似下面的输出：</p>
+
+<p><img src="http://cdn2.raywenderlich.com/wp-content/uploads/2014/03/TerminalOutput.png" alt="TerminalOutput" />	</p>
+
+<p>执行下面的命令安装CocoaPods:</p>
+
+<pre><code>sudo gem install cocoapods
+</code></pre>
+
+<p>安装过程中终端可能会弹出一下需要你确认的信息：</p>
+
+<pre><code>rake's executable "rake" conflicts with /usr/bin/rake
+Overwrite the executable? [yN]
+</code></pre>
+
+<p>如果是，直接输入y确认。</p>
+
+<p>最后，输入以下命令完成CocoaPods安装(这个命令将<a href="https://github.com/CocoaPods/Specs">CocoaPods Specs repository</a> clone到本机的~/.cocoapods/目录下)：</p>
+
+<pre><code>pod setup
+</code></pre>
+
+<p>另外，ruby的软件源rubygems.org被墙，因此需要更新以下ruby的源：</p>
+
+<pre><code>gem sources --remove https://rubygems.org/
+gem sources -a http://ruby.taobao.org/
+gem sources -l
+</code></pre>
+
+<h3 id="cocoapods-1">使用CocoaPods镜像索引</h3>
+
+<p>所有的项目的Podspec文件都托管在https://github.com/CocoaPods/Specs。第一次执行pod setup时，CocoaPods会将这些podspec索引文件更新到本地的 ~/.cocoapods/目录下，这个索引文件比较大，所以第一次更新时非常慢。</p>
+
+<p>可以将CocoaPods设置成使用国内的CocoaPods索引库镜像：</p>
+
+<pre><code>pod repo remove master
+pod repo add master [https://gitcafe.com/akuandev/Specs.git | http://git.oschina.net/akuandev/Specs.git]
+pod repo update
+</code></pre>
+
+<hr />
+
+<h2 id="cocoapods-2">CocoaPods使用</h2>
+
+<p>在终端中进入项目所在目录，然后执行以下命令为项目创建默认的Podfile。你需要在Podfile中声明本项目的依赖项。</p>
+
+<pre><code>pod init	
+</code></pre>
+
+<p>执行以下命令，可以使用Xcode打开Podfile进行编辑：</p>
+
+<pre><code>open -a Xcode Podfile
+</code></pre>
+
+<p><strong><em>不要使用TextEdit进行编辑，TextEdit会替换标准的引号，导致CocoaPods出错</em></strong>	</p>
+
+<p>初始时，Podfile的内容如下：</p>
+
+<pre><code># Uncomment this line to define a global platform for your project
+# platform :ios, "6.0"
+ 
+target "ShowTracker" do
+ 
+end
+</code></pre>
+
+<p>将<strong><em># platform :ios, “6.0”</em></strong>修改为：<strong><em>platform :ios, “7.0”</em></strong></p>
+
+<p>这个语句告诉CocoaPods，本项目基于iOS7.</p>
+
+<p>接着，向Podfile增加依赖项目：</p>
+
+<pre><code>pod 'AFNetworking', '2.2.1'
+</code></pre>
+
+<p>保存并退出编辑。</p>
+
+<p>当我们通过CocoaPods引入依赖库时，需要显式或隐式注明引用的依赖库版本，具体写法和含义如下：</p>
+
+<pre><code>pod 'AFNetworking'              //不注明版本，每次都获取最新版本
+pod 'AFNetworking', '2.0'       //只使用2.0版本
+pod 'AFNetworking', '&gt; 2.0'     //使用高于2.0的版本
+pod 'AFNetworking', '&gt;= 2.0'    //使用不低于2.0的版本
+pod 'AFNetworking', '&lt; 2.0'	//使用小于2.0的版本
+pod 'AFNetworking'. '&lt;= 2.0'    //使用不高于2.0的版本
+pod 'AFNetworking', '~&gt; 0.1.2'  //使用大于等于0.1.2，小于0.2的版本
+pod 'AFNetworking', '~&gt; 0.1'    //使用大于等于0.1，小于1.0的版本
+pod 'AFNetworking', '~&gt; 1.0.0'  //使用大于等于1.0.0，小于2.0.0的版本
+pod 'AFNetworking', '~&gt; 0'      //使用高于0的版本，写这个和什么都不写一样，都表示使用最新版本
+</code></pre>
+
+<p>执行安装依赖项目的命令：</p>
+
+<pre><code>pod install
+</code></pre>
+
+<p>安装成功后，使用<strong><em>[project].xcworkspace</em></strong>打开项目</p>
+
+<hr />
+
+<h2 id="section-1">管理私有库</h2>
+
+<p>基于我们的一些代码不是开源的，或不放到Github的情况，这时就有需要搭建私有repo。</p>
+
+<h3 id="section-2">概念解析</h3>
+
+<ul>
+  <li>podspec：一个pod的配置是什么，pod的代码放在那里</li>
+  <li>Podfile：项目依赖哪个pod，以何种方式依赖，它的podspec放在哪里</li>
 </ul>
+
+<h3 id="section-3">操作步骤</h3>
+
+<p>首先，为需要管理的库创建新的git repository，并打上Tag，如v0.0.1</p>
+
+<p>然后，新建一个用来配置作者等信息的[project].podspec文件:</p>
+
+<pre><code>Pod::Spec.new do |s|
+	s.name = '[ProjectName]'
+	s.version = '0.0.1'
+	s.license = 'MIT'
+	s.summary = '[summary]'
+	s.homepage = 'http://www.xxx.com'
+	s.description = '[s.description]'
+	s.author = {'author_name' =&gt; 'email' }
+	s.source = { :git =&gt; 'https://github.com/[username]/[repository].git', :tag =&gt; '0.0.1' }
+	s.platform = :ios,'5.0'
+	s.source_files = 'src'
+	s.frameworks = 'SomeFramework','AnotherFramework'
+end
+</code></pre>
+
+<p>s.source指定代码库地址， s.source_files指定所需文件的所在的文件夹，s.frameworks指定需要用到的framework。</p>
+
+<p>可以使用以下命令初始化一个podspec文件：</p>
+
+<pre><code>pod spec create PODSPEC_NAME
+</code></pre>
+
+<p>接着，编辑开发项目中的Podfile，添加：</p>
+
+<pre><code>pod '[project]', :local =&gt; '~/[path]/[project].podspec'
+</code></pre>
+
+<p>或将podspec放在gist上：</p>
+
+<pre><code>pod '[project]', :podspec =&gt; 'https://xxx.github.com/gist/....'	 	
+</code></pre>
+
+<p>最后，使用：</p>
+
+<pre><code>pod update
+</code></pre>
+
+<p>需要注意：</p>
+
+<ul>
+  <li>s.name需要和本podspec文件的名称一致，区分大小写</li>
+  <li>可以在git上打tag，在podspec文件上指定:tag。这样可以保证repo对外保持稳定，不受开发状态影响。</li>
+  <li>可以根据功能/模块对podspec进行分块(subspec)，这样其他人可以选择安装lib的一个/多个子集。在Podfile中，<code>pod 'CommonLib'</code>安装整个CommonLib。如只需要其中的UI模块，可以使用 <code>pod 'CommonLib/UI'</code>。</li>
+</ul>
+
+<p>一个完整的podspec例子：</p>
+
+<pre><code>Pod::Spec.new do |s|
+	s.name         = "CommonLib"
+	s.version      = "0.0.1"
+	s.summary      = "common lib for ios team."
+	
+	s.description  = &lt;&lt;-DESC
+                      commonlib for ios development, includes UI components, UIHelper, NetworkHelper, etc.
+                     DESC
+               
+	s.homepage     = "http://[host]/ios-project-libs/commonlib"
+    
+	s.license      = "MIT"
+	s.authors      = { "author_name" =&gt; "email" }
+	s.platform     = :ios, '6.0'
+	s.source       = { :git =&gt; "http://[host]/ios-project-libs/commonlib.git", :tag =&gt; "v0.0.1" }
+    
+	s.resources = "CommonLib/Resource/Localization", "CommonLib/Resource/Images"
+
+	s.dependency "AFNetworking", "~&gt; 2.3.1"
+	s.dependency "AFNetworking-MUResponseSerializer", "0.9.9"
+	s.dependency "Masonry", "~&gt; 0.5.2"
+
+	s.requires_arc = true
+
+	s.prefix_header_contents = &lt;&lt;-EOS
+                          #ifdef __OBJC__
+                            #import &lt;Foundation/Foundation.h&gt;
+
+                            #define MAS_SHORTHAND
+                            #import "Masonry.h"
+ 				 
+                            #import "AFNetworking.h"
+                            #import "MUResponseSerializer.h"
+		 
+                          #endif
+
+                        EOS
+
+	s.subspec "Models" do |ss|
+
+		ss.source_files = "CommonLib/Models", "CommonLib/Models/**/*.{h,m}"
+
+	end
+  
+	s.subspec "Utils" do |ss|
+
+		ss.dependency "CommonLib/Models"
+		ss.source_files = "CommonLib/Common", "CommonLib/Common/**/*.{h,m}"
+
+	end
+
+	s.subspec "Library" do |ss|
+
+		ss.source_files = "CommonLib/Library", "CommonLib/Library/**/*.{h,m}"
+
+	end
+
+	s.subspec "UI" do |ss|
+
+		ss.dependency "CommonLib/Utils"
+		ss.dependency "CommonLib/Library"
+
+		ss.prefix_header_contents = &lt;&lt;-EOS
+                             		  #import "GMDebugHeader.h"
+                            		 EOS
+
+		ss.exclude_files = "CommonLib/Views/UITest.{h,m}"
+
+		ss.source_files = "CommonLib/Views", "CommonLib/Views/**/*.{h,m}"
+
+	end
+
+end
+</code></pre>
+
+<p>修改podspec文件后，可以执行以下命令校验：</p>
+
+<pre><code>pod spec lint
+</code></pre>
+
+<p>在搭建私有公共库时（可以在podfile中，以这样的形式使用：<code>pod 'CommonLib', '~&gt; 0.0.1'</code>），还需要另外搭建私有的repo，并将项目的podspec文件上传到repo。</p>
+
+<p>私有repo搭建完成后，客户端需要在本机配置相应的repo（~/.cocoapods/）：</p>
+
+<pre><code>pod repo add REPO_NAME SOURCE_URL	
+</code></pre>
+
+<p>添加Podspec到repo（若已经添加，则这步可以忽略）：</p>
+
+<pre><code>pod repo push REPO_NAME SPEC_NAME.podspec	
+</code></pre>
+
+<p>每次执行 <code>pod install --no-repo-update</code>或 <code>pod update --no-repo-update</code>前，需要更新一下本地的repo（当私有repo有更新时）：</p>
+
+<pre><code>pod repo update REPO_NAME 	
+</code></pre>
+
+<hr />
+
+<p>reference:</p>
+
+<ul>
+  <li>
+    <p><a href="http://guides.cocoapods.org">CocoaPods Guides</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.raywenderlich.com/64546/introduction-to-cocoapods-2">Introduction to CocoaPods Tutorial</a></p>
+  </li>
+  <li>
+    <p><a href="http://www.itiger.me/?p=74">使用CocoaPods管理私有库</a></p>
+  </li>
+  <li>
+    <p><a href="https://github.com/AFNetworking/AFNetworking/blob/master/AFNetworking.podspec">AFNetworking podspec</a>	</p>
+  </li>
+  <li>
+    <p><a href="http://www.exiatian.com/cocoapods安装使用及配置私有库/">CocoaPods安装使用及配置私有库</a>	</p>
+  </li>
+  <li>
+    <p><a href="http://www.iwangke.me/2013/04/18/advanced-cocoapods/">CocoaPods进阶：本地包管理</a></p>
+  </li>
+  <li>
+    <p><a href="http://blog.devtang.com/blog/2014/05/25/use-cocoapod-to-manage-ios-lib-dependency/">用CocoaPods做iOS程序的依赖管理</a></p>
+  </li>
+</ul>
+
+<h1 id="retain-cycleios20140805what-is-a-retain-cycle"><a href="/ios/2014/08/05/what-is-a-retain-cycle">什么是引用循环（retain cycle）？</a></h1>
+<hr />
+<p>05 Aug 2014</p>
+
+<p>引用循环（retain cycle）会发生在像Objective-C这样的基于引用计数（retain count）内存管理技术的语言中。当对象被创建时，其引用计数为1。当其它对象引用它时，引用计数增加；当其它对象释放它时，引用计数减少。当对象的引用计数为0时，运行时（runtime）会将其释放（deallocate），这时对象的dealloc方法被调用。</p>
+
+<p>假设有两个对象A和B，A创建并引用B。创建A的对象会负责释放A，假设A的dealloc方法会release B，当B的引用计数为0时，B被释放。为简单起见，假设没有其它额外的对象引用A或B。</p>
+
+<p>但如果B需要引用A，增加A的引用计数时会怎样？创建A的对象会释放A，但是B现在也引用A，A的引用计数不为0。另一方面，A引用B，因此B的引用计数也不为0，A和B都不会被释放。B的dealloc方法不会被调用，因此计算B在其dealloc方法调用A的release方法也没有作用。</p>
+
+<p>在此情况下，就发生了内存泄漏（memory leak）：没有其它对A或B的引用，但A和B都没有被释放。如果A和B正在做任何消耗cpu的东西，应用也会发生leaking CPU time。</p>
+
+<p>reference: </p>
+
+<p><a href="http://www.quora.com/What-is-a-retain-cycle">What is a retain cycle?</a></p>
+
+<h1 id="ios-sdkios20140803ios-sdk-related-problems"><a href="/ios/2014/08/03/ios-sdk-related-problems">iOS SDK相关问题</a></h1>
+<hr />
+<p>03 Aug 2014</p>
+
+<h2 id="loadviewviewdidload">loadView和viewDidLoad的不同之处?</h2>
+
+<blockquote>
+
+  <p>不要在loadView里读取self.view。只设置，不读取！</p>
+
+  <p>读取self.view的时，若view没有被加载，get方法会调用loadView方法。若在loadView方法里读取self.view，会造成循环调用。</p>
+</blockquote>
+
+<blockquote>
+
+  <p>通常情况下，会在loadView中构建视图，如：</p>
+</blockquote>
+
+<pre><code>UIView *view = [UIView alloc] init...];
+...
+[view addSubview:whatever];
+[view addSubView:whatever2];
+...
+self.view = view;
+[view release];
+</code></pre>
+
+<blockquote>
+
+  <p>UIViewController在loadView方法中加载view并将其赋给属性“view”的方法。当从UIViewController派生子类时，可以重写loadView方法设置view属性。</p>
+</blockquote>
+
+<blockquote>
+
+  <p>当view加载完成时，viewDidLoad会被调用。viewDidLoad在loadView之后被调用，在这里可以进一步控制view的设置。</p>
+</blockquote>
+
+<p>reference: <a href="http://stackoverflow.com/a/574291">iPhone SDK: what is the difference between loadView and viewDidLoad?</a></p>
+
+<h2 id="ios6viewdidunloadviewwillunload">iOS6，viewDidUnload、viewWillUnload过期</h2>
+
+<p>苹果官方文档提到：</p>
+
+<blockquote>
+
+  <p>这个方法在controller的view被释放时调用。在iOS6中，viewDidUnload被抛弃。在low-memory的情况下，views不会被清除。因此这个方法不会被调用。(Deprecated in iOS6.0. Views are no longer purged under low-memory conditions and so this method is never called.)</p>
+</blockquote>
+
+<p>从iOS6开始，没有必要controller对view或其它对象的引用。</p>
+
+<p><strong><em>可以在ViewController的didReceiveMemoryWarning方法中设置view或其它组件为nil。可以覆盖该方法来释放被view controller使用的任何多余的内存。但app中不应该调用这个方法，当系统检测到内存紧张时，会自动调用该方法。</em></strong></p>
+
+<p><strong><em>在重写didReceiveMemoryWarning时，最好的做法时不要释放任何view对象，只释放那些不再需要的个人数据(custom data)。至于view对象，就让view controller的父类来处理。</em></strong></p>
+
+<h2 id="add-subviews-viewdidappear-viewdidload-viewwillappear">在哪里add subviews: ViewDidAppear? ViewDidLoad? ViewWillAppear?</h2>
+
+<ul>
+  <li>viewDidLoad - 当需要控制子view跟随view一同呈现时，需要将添加子view这个动作放到ViewDidLoad方法。该方法在view加载到内存时被调用。比如：假设view是一个包含3个label的form，那么就将增加label到view上这个动作放到ViewDidLoad。</li>
+  <li>viewWillAppear － 通常用来更新数据。继续上面的例子，通过在这个方法中加载服务器数据到form上。创建UIView属于较为消耗大的操作，应该尽量避免在ViewWillAppepear进行这个操作。当这个方法被调用时，意味着设备已经准备好将UIView呈现给用户，在这里进行任何消耗大的操作会影响性能，并且用户能切实感受到（比如动画延时）。</li>
+  <li>viewDidAppear － 在这个方法中，开启新的线程去执行那些执行时间长的事情。比如调用webservice为form获取额外的数据。幸好的是view已经准备好并呈现给用户，因此，在加载数据时，你可以向用户提示友好的“Waiting”信息。</li>
+</ul>
+
+<p>reference: <a href="http://stackoverflow.com/a/2281560">viewDidLoad, viewWillAppear, viewDidAppear</a></p>
+
+<h2 id="loadview">何时重写loadView</h2>
+
+<ul>
+  <li>当在view controller及其派生类中使用自定义root view时，就应该在loadView方法中创建view，并将其设置为view controller的view属性（注意不要调用super）。</li>
+  <li>在viewDidLoad方法中修改view controller’s view或为其添加subview</li>
+  <li>推荐的做法是在viewDidLoad中创建UILabel或UIWebView，并在viewDidUnload将它们释放，并将它们的引用变量设为nil。</li>
+</ul>
+
+<p>reference: <a href="http://stackoverflow.com/a/2280642">loadView</a></p>
+
+<h2 id="arcdeallocnil">ARC模式下，是否需要在dealloc方法中设置属性为nil</h2>
+
+<p>就算在手动管理内存模式（MRR, manual memory management），也不应该在dealloc中设置property为nil。</p>
+
+<p>在MRR模式下，你应该释放实例变量（ivars）。设置property为nil会调用set方法，而set方法可能包含不应该在dealloc方法执行的代码。也有可能会触发KVO notifications。释放ivar而不是property可以避免产生未预期的结果。</p>
+
+<p>在ARC模式下，系统会自动释放ivars。如果所做的只是这些，你甚至不需要实现dealloc方法。但如果代码包含分配缓冲区（buffers）等非对象（non-objects）ivars，你还是需要在dealloc方法中处理它们。</p>
+
+<p>进一步说，如果将自身设为其它对象的delegate，那么在dealloc方法中，你应该解除这种关系（代码如下：[obj setDelegate = nil]），但delegate属性为weak的情况除外。</p>
+
+<p>reference:</p>
+
+<p><a href="http://stackoverflow.com/a/7906891">Do I set properties to nil in dealloc when using ARC</a></p>
+
+<h2 id="objective-c-class-extension">Objective-C class extension</h2>
+
+<p>Q: 在class extension中定义私有方法和完全不声明私有方法之间的差异？</p>
+
+<pre><code>@interface Class()
+
+- (void)bar;
+
+@end
+
+
+@implementation Class
+
+- (void)foo
+{
+	[self bar];
+}
+
+- (void)bar
+{
+	NSLog(@"bar")
+}
+
+@end
+</code></pre>
+
+<p>和</p>
+
+<pre><code>@implementaion Class
+
+- (void)foo
+{
+	[self bar];
+}
+
+- (void)bar
+{
+	NSLog(@"bar");
+}
+
+@end
+</code></pre>
+
+<p>A: 现在不需要声明私有方法。在不久前，私有方法需要预先声明，大多数人选择在class extension中声明。从Xcode 4.4开始，编译器已经有能力检测implementation中的私有方法，从而不需要在别处预先声明。</p>
+
+<p>Q: 在class extension中声明变量和implementation中的差异？</p>
+
+<pre><code>@interface Class()
+{
+	NSArray *mySortedArray;
+}
+
+@end
+
+@implementation Class
+
+@end
+</code></pre>
+
+<p>和</p>
+
+<pre><code>@implementation Class
+
+NSArray *mySortedArray;
+
+@end	
+</code></pre>
+
+<p>A: 在class extension中声明的变量是类的实例变量，而在implementation中直接声明的变量是全局变量（遵循c的全局变量语义）！</p>
+
+<p>reference：</p>
+
+<p><a href="http://stackoverflow.com/a/14675389">Objective-C class extension</a>	</p>
+
+<h1 id="uipickerviewios20140731uipickerview"><a href="/ios/2014/07/31/uipickerview">UIPickerView</a></h1>
+<hr />
+<p>31 Jul 2014</p>
+
+<h4 id="uipickerview">调整UIPickerView高度</h4>
+
+<p>UIPickerView只允许3种高度(162.0, 180.0, 216.0)</p>
+
+<p><strong>UIDatePicker也只允许这3种高度</strong></p>
+
+<blockquote>
+
+  <p>在程序中允许设置UIPickerView的frame，但frame的height小于162，或大于216时，系统会在控制台上输出：</p>
+
+  <p>Invalid height value 300.0 pinned to 216.0.</p>
+
+  <p>Invalid height value 66.0 pinned to 162.0.</p>
+</blockquote>
+
+<p>参考资料：</p>
+
+<ul>
+  <li><a href="http://stackoverflow.com/questions/573979/how-to-change-uipickerview-height">How to change UIPickerView height</a></li>
+</ul>
+
+<h1 id="iosuiedgeinsetsmakeios20140731make-stretchable-button-with-uiedgeinsetsmake"><a href="/ios/2014/07/31/make-stretchable-button-with-uiedgeinsetsmake">iOS：使用UIEdgeInsetsMake制作可伸缩按钮</a></h1>
+<hr />
+<p>31 Jul 2014</p>
+
+<p>在一个iOS app里，通常会使用很多的button。而这些button有同样的背景色（backgroud）但在不同的屏幕上有不同的大小（即使在iOS7上，button没有背景）。举个例子，Save button会比Submit button短，但它们都以紫色为背景色。</p>
+
+<p>在此情况下，你通常不想为button定义各种不同大小背景图片。幸运地，使用<strong>UIEdgeInsetsMake</strong>方法可以非常容易地令一张这样的图片：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/purple_button@2x.png" alt="origin image" /></p>
+
+<p>变成这样的：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.32.55-AM.png" alt="target image" /></p>
+
+<p>这个想法非常简单。原图的方形圆角按钮的边缘需要保留，但中间部分可以在横向/纵向两个方向进行复制，直到达到需要的大小。</p>
+
+<p>使用<strong>UIEdgeInsets</strong>，并指定在拉伸图片时，top、left、bottom、right忽略的像素数可以达到此目的。<strong>UIEdgeInsets</strong>是一个包含4个float类型字段（top、left、bottom、right）的结构体（struct）。</p>
+
+<pre><code>typedef struct {
+	CGFload top, left, bottom, right;
+} UIEdgeInsets;
+</code></pre>
+
+<h2 id="section">复制一切</h2>
+
+<p>现在我新建一个项目，在storyboard上添加一个自定义button，然后在ViewController上为那个button创建outlet。在ViewDidLoad:方法，我调用了私有的configureButton方法。该方法在最开始的时候将UIEdgeInsets初始为<strong>UIEdgeInsetsMake(0, 0, 0, 0)</strong>。</p>
+
+<pre><code>- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@"purple_button.png"]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+</code></pre>
+
+<p>随着整张图片不断被复制（在UIEdgeInsets没有设置忽略像素），最后生成的图片为：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.47.11-AM.png" alt="Screen-Shot-2013-10-24-at-6.47.11-AM" /></p>
+
+<h2 id="section-1">纵向拉伸</h2>
+
+<p>为了让图片纵向拉伸，我们需要忽略左边缘和右边缘，如下图所示：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/purple_button_vertically.png" alt="purple_button_vertically" /></p>
+
+<p>在这些边缘之间的所有东西可以被复制。为达到这样的效果，我们需要忽略左/右各8各像素，设置UIEdgeInsets为UIedgeInsetsMake(0, 8, 0, 8)：</p>
+
+<pre><code>- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(0, 8, 0, 8);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@"purple_button.png"]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+</code></pre>
+
+<p>现在的效果看起来好多了！</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.53.42-AM.png" alt="Screen-Shot-2013-10-24-at-6.53.42-AM" /></p>
+
+<h2 id="section-2">横向拉伸</h2>
+
+<p>类似地，如果需要将图片横向拉伸，只需要忽略图片上/下各8像素，将图片的中间部分复制：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/purple_button_horizontal-1.png" alt="purple_button_horizontal-1" /></p>
+
+<p>所以，如果只是横向拉伸，UIEdgeInsets被设置为UIEdgeInsetsMake(8, 0, 8, 0)，configureButton的方法如下：</p>
+
+<pre><code>- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(8, 0, 8, 0);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@"purple_button.png"]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+</code></pre>
+
+<p>类似上面得例子，图片可以横向拉伸，但纵向没有：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-7.03.20-AM.png" alt="Screen-Shot-2013-10-24-at-7.03.20-AM" /></p>
+
+<h2 id="section-3">双向拉伸</h2>
+
+<p>为了让图片同时在横向和纵向拉伸，我们需要忽略上/下、左/右8像素：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/purple_button_both-1.png" alt="purple_button_both-1" /></p>
+
+<p>我们只需要简单地设置UIEdgeInsets为UIEdgeInsetsMake(8, 8, 8, 8)，在每个方向上忽略8像素：</p>
+
+<pre><code>- (void)configureButton
+{
+	UIEdgeInsets edgeInsets = UIEdgeInsetsMake(8, 8, 8, 8);
+	UIImage *backgroundButtonImage = [[UIImage imageNamed:@"purple_button.png"]
+                                  resizableImageWithCapInsets:edgeInsets];
+	[self.purpleButton setBackgroundImage:backgroundButtonImage
+                             forState:UIControlStateNormal];
+}
+</code></pre>
+
+<p>Voilà! 我们现在拥有一个非常好看地按钮：</p>
+
+<p><img src="http://natashatherobot.com/wp-content/uploads/Screen-Shot-2013-10-24-at-6.32.55-AM.png" alt="Screen-Shot-2013-10-24-at-6.32.55-AM" /></p>
+
+<p>无论什么时候，只要你需要一个紫色的按钮，你只需要一张小的方图，然后忽略其边角部分并将中间部分不断复制，就可以将原图改变成任意大小。</p>
+
+<h3 id="section-4">原文链接</h3>
+
+<p><a href="http://natashatherobot.com/ios-stretchable-button-uiedgeinsetsmake">iOS: How To Make A Stretchable Button With UIEdgeInsetsMake</a></p>
+
+<h1 id="uiviewios20140728uiview"><a href="/ios/2014/07/28/UIView">UIView</a></h1>
+<hr />
+<p>28 Jul 2014</p>
+
+<h2 id="layoutsubviews">layoutSubviews</h2>
+
+<p>布局subviews</p>
+
+<p>- (void)layoutSubviews</p>
+
+<h3 id="section">概述</h3>
+
+<p>该方法的默认实现对于iOS 5.1及其之前的版本无效。否则，默认的实现方法会使用你设置的所有约束去确定所有subviews的size和position。</p>
+
+<p>在需要更精准地布局subviews的时候，派生类可以覆盖这个方法。只有在subviews的autoresizing和contraint-base behaviors不能提供你想要的行为时，你才应该去覆盖这个方法。你可以使用自身实现的方法去设置subviews的frame rectangles。</p>
+
+<p>你不应该直接调用该方法。如果想要强制更新布局，需要调用<em>setNeedsLayout</em>方法来通知系统在下次绘图时更新布局。如果需要立即更新views，则需要调用<em>layoutIfNeeded</em>。</p>
+
+<blockquote>
+  <p>在重写该方法时，可以获取view上将要显示的数据。因此，可以根据这些数据来对subviews进行更精细的布局，如控制文本的高度。</p>
+</blockquote>
+
+<h2 id="drawrect">drawRect:</h2>
+
+<p>在指定的矩形区域内绘制接收者的图片。</p>
+
+<p>- (void)drawRect:(CGRect)rect</p>
 
 
   </div>
